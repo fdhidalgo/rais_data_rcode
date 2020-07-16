@@ -9,8 +9,7 @@ states <- c("centro05", "nordeste05", "norte05", "sp05", "sp105", "sudeste05", "
 
 base_dir <- "/media/dhidalgo/A610EA2D10EA03E1/rais/rais_original_files"
 
-# make rais, but not parallel. It works, but trying with everything was not working....
-# ALSO, change folder name in glue and set working directory to correct directory
+
 make_rais <- function(states, base_dir, size = 10000) {
   raw_data <-  fread(glue('{base_dir}/2005/{states}.TXT'),
                      nrows = size, colClasses=c("character"))
