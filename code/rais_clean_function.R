@@ -340,8 +340,9 @@ clean_rais <- function(rais) {
            ocupacao94,  ocup2002,  grinstrucao, genero, dtnascimento, nacionalidad,
            portdefic, raca_cor, remdezembro, remdezr, remmedia, remmedr, tempempr, tiposal,
            salcontr ,ultrem, horascontr, clascnae95, tamestab, natjuridica, tipoestbl, indceivinc,
-           ceivinc, indalvara, indpat ,indsimples)   #this reorders the
+           ceivinc, indalvara, indpat ,indsimples)  %>%  #this reorders the
     # dataframe and drops a duplicate column made in the process
+    as.data.table()
 }
 
 
