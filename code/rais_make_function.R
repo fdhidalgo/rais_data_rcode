@@ -12,16 +12,12 @@ base_dir <- "/media/dhidalgo/A610EA2D10EA03E1/rais/rais_original_files"
 # make rais, but not parallel. It works, but trying with everything was not working....
 # ALSO, change folder name in glue and set working directory to correct directory
 make_rais <- function(states, base_dir, size = 10000) {
-  states_list <- lapply( states , function(state) fread(glue('{base_dir}/2005/{state}.TXT'),
-                                                        nrows = size, colClasses=c("character")))
+  raw_data <-  fread(glue('{base_dir}/2005/{states}.TXT'),
+                     nrows = size, colClasses=c("character"))
 
-  clean_states_list<- lapply(states_list, clean_rais)
-  rm(states_list)
-
-  bind_rows(clean_states_list)
-
+  cleaned_data <- clean_rais(raw_data)
 }
 
-rais_2005 <- make_rais(states = states, base_dir = base_dir, size = Inf)
 
-
+rais_2005 <- map(states, ~ make_rais(states = .x, base_dir = base_dir, size = Inf)) %>%
+  bind_rows()
