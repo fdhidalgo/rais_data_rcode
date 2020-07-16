@@ -7,7 +7,7 @@ source("./code/rais_clean_function.R")
 
 states <- c("centro05", "nordeste05", "norte05", "sp05", "sp105", "sudeste05", "sul05" )
 
-base_dir <- "/Volumes/HidalgoVault/data/RAIS/rais_original_files"
+base_dir <- "/media/dhidalgo/A610EA2D10EA03E1/rais/rais_original_files"
 
 # make rais, but not parallel. It works, but trying with everything was not working....
 # ALSO, change folder name in glue and set working directory to correct directory
@@ -16,11 +16,12 @@ make_rais <- function(states, base_dir, size = 10000) {
                                                         nrows = size, colClasses=c("character")))
 
   clean_states_list<- lapply(states_list, clean_rais)
+  rm(states_list)
 
-  everything <- bind_rows(clean_states_list)
+  bind_rows(clean_states_list)
 
 }
 
-rais_2005 <- make_rais(states = states[1:2], base_dir = base_dir, size = Inf)
+rais_2005 <- make_rais(states = states, base_dir = base_dir, size = Inf)
 
 
