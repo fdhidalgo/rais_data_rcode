@@ -1,0 +1,15 @@
+##R stuff
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+#Don't use version control on the following folders
+archive/
+#mac stuff
+# Folder view configuration files
+.DS_Store
+Desktop.ini
+# Thumbnail cache files
+._*
+Thumbs.db
+Icon
