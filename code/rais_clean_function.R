@@ -218,7 +218,8 @@ clean_rais <- function(rais) {
       tamestab == 7 ~ 6,
       tamestab == 8 ~ 7,
       tamestab == 9 ~ 8,
-      tamestab == 10 ~ 9
+      tamestab == 10 ~ 9, 
+      TRUE ~ 0
     ))%>%  # partially collapsing tamestab into 10 parts from 11
     mutate(tamestab = fct_recode(as_factor(tamestab),
                                  "Zero" = "0",
