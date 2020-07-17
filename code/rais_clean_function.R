@@ -135,7 +135,7 @@ clean_rais <- function(rais) {
                                  "Horario" = "5",
                                  "Tarefa" = "6",
                                  "Outros" = "7")) %>%  # above is recoding of tiposa
-    mutate(indalvara = fct_recode(as_factor(indalvara), "Nao" = "0" ,  "Sim" = "1"),
+    mutate(indalvara = fct_recode(as_factor(indalvara), "Nao" = "1" ,  "Sim" = "2"),
            indpat = fct_recode(as_factor(indpat), "Nao" = "0" ,  "Sim" = "1"),
            indsimples = fct_recode(as_factor(indsimples), "Nao" = "0" ,  "Sim" = "1")) %>%
     # above is recoding of indalvara, indpat, indsimples
