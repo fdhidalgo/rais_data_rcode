@@ -1,9 +1,6 @@
 library(pacman)
 p_load(dtplyr, data.table, ggplot2, janitor, stringr, lubridate, glue, tidyverse, parallel)
 
-rm(list =ls())
-
-
 
 clean_rais <- function(rais) {
 
@@ -38,7 +35,8 @@ clean_rais <- function(rais) {
                            nchar(CPF) == 7 ~ paste0("0000",CPF),
                            nchar(CPF) == 8 ~ paste0("000",CPF),
                            nchar(CPF) == 9 ~ paste0("00",CPF),
-                           nchar(CPF) == 10 ~ paste0("0",CPF)
+                           nchar(CPF) == 10 ~ paste0("0",CPF), 
+                           TRUE ~ as.character(CPF)
     )) %>%  # the above changes CPF
     mutate(identificad = case_when(nchar(identificad) == 3 ~ paste0("00000000000",identificad),
                                    nchar(identificad) == 4 ~ paste0("0000000000",identificad),
