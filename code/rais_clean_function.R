@@ -1,3 +1,4 @@
+#run functions in the rais bowl first
 clean_rais_2005 <- function(rais_data) {
   rais_data %>% 
     as.data.table() %>% 
