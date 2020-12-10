@@ -1,3 +1,6 @@
+### make_rais ###
+## this function reads in the data and runs a specific clean function 
+
 
 make_rais <- function(states, base_dir, year, size = 10000) {
 
