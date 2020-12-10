@@ -3,6 +3,6 @@
 
 library(tidyverse)
 library(dtplyr)
-library(datatable)
+library(data.table)
 library(magrittr)
 library(glue)
