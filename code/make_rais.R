@@ -10,5 +10,5 @@ make_rais <- function(states, base_dir, year, size = 10000) {
   correct_cleanfunction <- glue("clean_rais_{year}") # locate the correct clean function based off year
   
   cleaned_data <- eval(call(correct_cleanfunction, raw_data)) # call the clean function on the raw data
-  
+  cleaned_data
 }
