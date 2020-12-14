@@ -26,7 +26,7 @@ clean_rais_2012 <- function(rais_data) {
     tamestab_rais() %>% 
     tipoestbl_rais() %>% 
     commareplace_rais() %>% 
-    natjuridica_rais_2012() %>% 
+    natjuridica_rais() %>% 
     causafast_rais() %>% 
     diainiafmesiniaf_rais() %>% 
     as_tibble() %>% 
