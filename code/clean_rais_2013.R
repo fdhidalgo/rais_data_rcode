@@ -1,4 +1,3 @@
-
 clean_rais_2013 <- function(rais_data) {
   rais_data %>% 
     as.data.table() %>% 
@@ -30,6 +29,7 @@ clean_rais_2013 <- function(rais_data) {
     natjuridica_rais() %>% 
     causafast_rais() %>% 
     diainiafmesiniaf_rais() %>%
+    rais_assertclass %>% 
     as_tibble() %>% 
     reorder_rais_2013() 
 }
