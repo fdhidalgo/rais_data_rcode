@@ -21,7 +21,8 @@ out_files <-  paste0(glue(base_dir, "/rais_cleaned/", "{year}", "/"),
                      gsub(".*/(.*)\\.txt", files, replacement = "\\1"),
                      ".gz")
 
-for(i in seq_along(1:length(files))){
+for(i in 1:27){
   print(i)
   clean_save_rais(file = files[i], clean_func = clean_func, out_file = out_files[i])
 }
+
