@@ -1,15 +1,15 @@
-### rais function masterlist ### 
-## this file contains all minor functions used in the different clean functions.
-# it is organized by variable with functions that are different between years having different year suffixes
-
 
 ### rename rais [dif] ----
+rename_rais_2005 <- function(rais_data) {
+  newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo","causadesli", "mesdesli","indalvara","tipoadm", "tiposal","ocupacao94","grinstrucao", "sexotrabalhador","nacionalidad", "raca_cor", "portdefic", "tamestab","natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao","remmedia" ,"remmedr" ,"remdezembro" ,"remdezr" ,"tempempr" ,"horascontr","ultrem" ,"salcontr" ,"PIS" ,"dtnascimento" ,"numectps" ,"CPF" ,"ceivinc" ,"identificad", "radiccnpj", "TIPOESTBID","nome", "diadesli",   "ocup2002" )
+  setnames(rais_data, new = newnames ) # replacing old names with new
+}
 rename_rais_2012 <- function(rais_data) {
 newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo", "causadesli", "mesdesli", "indalvara", "tipoadm", "tiposal", "ocupacao94", "grinstrucao", "sexotrabalhador", "nacionalidad", "raca_cor", "portdefic", "tamestab", "natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao", "remmedr", "remmedia", "remdezr", "remdezembro", "tempempr", "horascontr", "ultrem", "salcontr", "PIS", "numectps", "CPF", "ceivinc", "identificad", "radiccnpj", "nome", "ocup2002", "clascnae20", "sbclas20", "tpdefic", "causafast1", "diainiaf1", "mesiniaf1", "diafimaf1", "mesfimaf1", "causafast2", "diainiaf2", "mesiniaf2", "diafimaf2", "mesfimaf2", "causafast3", "diainiaf3", "mesiniaf3", "diafimaf3", "mesfimaf3", "qtdiasafas", "idade")
 setnames(rais_data, new = newnames ) # replacing old names with new
 }
-rename_rais_2005 <- function(rais_data) {
-  newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo","causadesli", "mesdesli","indalvara","tipoadm", "tiposal","ocupacao94","grinstrucao", "sexotrabalhador","nacionalidad", "raca_cor", "portdefic", "tamestab","natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao","remmedia" ,"remmedr" ,"remdezembro" ,"remdezr" ,"tempempr" ,"horascontr","ultrem" ,"salcontr" ,"PIS" ,"dtnascimento" ,"numectps" ,"CPF" ,"ceivinc" ,"identificad", "radiccnpj", "TIPOESTBID","nome", "diadesli",   "ocup2002" )
+rename_rais_2014 <- function(rais_data) {
+  newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo", "causadesli", "mesdesli", "indalvara", "tipoadm", "tiposal", "ocupacao94", "grinstrucao", "sexotrabalhador", "nacionalidad", "raca_cor", "portdefic", "tamestab", "natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao", "remmedr", "remmedia", "remdezr", "remdezembro", "tempempr", "horascontr", "ultrem", "salcontr", "PIS", "dtnascimento","numectps", "CPF", "ceivinc", "identificad", "radiccnpj", "nome", "ocup2002", "clascnae20", "sbclas20", "tpdefic", "causafast1", "diainiaf1", "mesiniaf1", "diafimaf1", "mesfimaf1", "causafast2", "diainiaf2", "mesiniaf2", "diafimaf2", "mesfimaf2", "causafast3", "diainiaf3", "mesiniaf3", "diafimaf3", "mesfimaf3", "qtdiasafas", "idade", "diadesli")
   setnames(rais_data, new = newnames ) # replacing old names with new
 }
 
@@ -33,6 +33,13 @@ destring_rais_2012 <- function(rais_data) {
   rais_data %>% 
     mutate_at(var_need_destringing, as.numeric)
 }
+destring_rais_2014 <- function(rais_data) {
+  var_need_destringing <- c("municipio", "tipoadm", "tpvinculo", "causadesli", "empem3112", "mesdesli", "diadesli","idade", "grinstrucao", "sexotrabalhador", "tamestab", "tipoestbl", "horascontr", "indceivinc", "tiposal", "indalvara", "indpat", "indsimples", "portdefic", "tpdefic", "raca_cor", "qtdiasafas", "causafast1","causafast2","causafast3",
+                            "clascnae95")
+  rais_data %>% 
+    mutate_at(var_need_destringing, as.numeric)
+}
+
 ### trim variables [dif] ----
 trim_rais <- function(rais_data) {
   rais_data %>% 
@@ -227,12 +234,14 @@ rais_data %>%
 ### dtadmissao ----
 dtadmissao_rais <- function(rais_data) {
   rais_data %>% 
-    mutate(dtadmissao = if_else(nchar(dtadmissao)==7, paste0("0",dtadmissao),dtadmissao) )
+    mutate(dtadmissao = if_else(nchar(dtadmissao)==7, paste0("0",dtadmissao),dtadmissao) ) %>% 
+    mutate(dtadmissao = dmy(dtadmissao))
 }
 ### dtnascimento ----
 dtnascimento_rais <- function(rais_data) {
   rais_data %>% 
-    mutate(dtnascimento = if_else(nchar(dtnascimento)==7, paste0("0",dtnascimento),dtnascimento) )
+    mutate(dtnascimento = if_else(nchar(dtnascimento)==7, paste0("0",dtnascimento),dtnascimento)%>% 
+             mutate(dtnascimento = dmy(dtnascimento)) )
 }
 ### genero ----
 genero_rais_2005 <- function(rais_data) {
@@ -481,6 +490,75 @@ rais_data %>%
   mutate_at(vars(starts_with(c("diainiaf", "mesiniaf"))),  ~fct_recode(as_factor(. ),
                                                                        "Nao se afastou" =  "-1"))
 }
+
+rais_assertclass <- function(){
+  rais_data %>% 
+    mutate_at(if('PIS' %in% names(.)) 'PIS' else integer(0), as.character) %>%
+    mutate_at(if('numectps' %in% names(.)) 'numectps' else integer(0), as.character) %>% 
+    mutate_at(if('CPF' %in% names(.)) 'CPF' else integer(0), as.character) %>% 
+    mutate_at(if('nome' %in% names(.)) 'nome' else integer(0), as.character) %>% 
+    mutate_at(if('identificad' %in% names(.)) 'identificad' else integer(0), as.character) %>% 
+    mutate_at(if('radiccnpj' %in% names(.)) 'radiccnpj' else integer(0), as.character) %>% 
+    mutate_at(if('tpvinculo' %in% names(.)) 'tpvinculo' else integer(0), as.factor) %>% 
+    mutate_at(if('empem3112' %in% names(.)) 'empem3112' else integer(0), as.factor) %>% 
+    mutate_at(if('tipoadm' %in% names(.))  'tipoadm' else integer(0), as.factor) %>% 
+    mutate_at(if('mesadmissao' %in% names(.))  'mesadmissao' else integer(0), as.numeric) %>% 
+    mutate_at(if('dtadmissao' %in% names(.))  'dtadmissao' else integer(0), as.Date) %>% 
+    mutate_at(if('causadesli' %in% names(.))  'causadesli' else integer(0), as.factor) %>% 
+    mutate_at(if('mesdesli' %in% names(.))  'mesdesli' else integer(0), as.numeric) %>% 
+    mutate_at(if('diadeslig' %in% names(.))  'diadeslig' else integer(0), as.numeric) %>% 
+    mutate_at(if('ocupacao94' %in% names(.))  'ocupacao94' else integer(0), as.character) %>% 
+    mutate_at(if('grinstrucao' %in% names(.))  'diadeslig' else integer(0), as.factor) %>% 
+    mutate_at(if('genero' %in% names(.))  'genero' else integer(0), as.factor) %>% 
+    mutate_at(if('idade' %in% names(.))  'idade' else integer(0), as.numeric) %>% 
+    mutate_at(if('dtnascimento' %in% names(.))  'dtnascimento' else integer(0), as.Date) %>% 
+    mutate_at(if('faixaetaria' %in% names(.))  'faixaetaria' else integer(0), as.factor) %>% 
+    mutate_at(if('nacionalidad' %in% names(.))  'nacionalidad' else integer(0), as.factor) %>% 
+    mutate_at(if('raca_cor' %in% names(.))  'raca_cor' else integer(0), as.factor) %>% 
+    mutate_at(if('portdefic' %in% names(.))  'portdefic' else integer(0), as.numeric) %>% 
+    mutate_at(if('horascontr' %in% names(.))  'horascontr' else integer(0), as.numeric) %>% 
+    mutate_at(if('remdezembro' %in% names(.))  'remdezembro' else integer(0), as.numeric) %>% 
+    mutate_at(if('remmedia' %in% names(.))  'remmedia' else integer(0), as.numeric) %>% 
+    mutate_at(if('tempempr' %in% names(.))  'tempempr' else integer(0), as.numeric) %>% 
+    mutate_at(if('remdezr' %in% names(.))  'remdezr' else integer(0), as.numeric) %>% 
+    mutate_at(if('remmedr' %in% names(.))  'remmedr' else integer(0), as.numeric) %>% 
+    mutate_at(if('tiposal' %in% names(.))  'tiposal' else integer(0), as.factor) %>% 
+    mutate_at(if('salcontr' %in% names(.))  'salcontr' else integer(0), as.numeric) %>% 
+    mutate_at(if('ultrem' %in% names(.))  'ultrem' else integer(0), as.numeric) %>% 
+    mutate_at(if('ocup2002' %in% names(.))  'ocup2002' else integer(0), as.character) %>% 
+    mutate_at(if('tpdef' %in% names(.))  'tpdef' else integer(0), as.factor) %>% 
+    mutate_at(if('clascnae95' %in% names(.))  'clascnae95' else integer(0), as.character) %>% 
+    mutate_at(if('clascnae20' %in% names(.))  'clascnae20' else integer(0), as.character) %>% 
+    mutate_at(if('sbclas20' %in% names(.))  'sbclas20' else integer(0), as.character) %>% 
+    mutate_at(if('natjuridica' %in% names(.))  'natjuridica' else integer(0), as.factor) %>% 
+    mutate_at(if('tamestab' %in% names(.))  'tamestab' else integer(0), as.factor) %>% 
+    mutate_at(if('tipoestbl' %in% names(.))  'tipoestbl' else integer(0), as.factor) %>% 
+    mutate_at(if('ibgesubsetor' %in% names(.))  'ibgesubsetor' else integer(0), as.factor) %>% 
+    mutate_at(if('ibgeatividade' %in% names(.))  'ibgeatividade' else integer(0), as.factor) %>% 
+    mutate_at(if('indceivinc' %in% names(.))  'indceivinc' else integer(0), as.numeric) %>% 
+    mutate_at(if('ceivinc' %in% names(.))  'ceivinc' else integer(0), as.character) %>% 
+    mutate_at(if('indalvara' %in% names(.))  'indalvara' else integer(0), as.factor) %>% 
+    mutate_at(if('indpat' %in% names(.))  'indpat' else integer(0), as.factor) %>% 
+    mutate_at(if('indsimples' %in% names(.))  'indsimples' else integer(0),  as.factor) %>% 
+    mutate_at(if('causafast1' %in% names(.))  'causafast1' else integer(0), as.factor) %>% 
+    mutate_at(if('causafast2' %in% names(.))  'causafast2' else integer(0), as.factor) %>% 
+    mutate_at(if('causafast3' %in% names(.))  'causafast3' else integer(0), as.factor) %>% 
+    mutate_at(if('diainiaf1' %in% names(.))  'diainiaf1' else integer(0), as.factor) %>% 
+    mutate_at(if('diainiaf2' %in% names(.))  'diainiaf2' else integer(0), as.factor) %>% 
+    mutate_at(if('diainiaf3' %in% names(.))  'diainiaf3' else integer(0), as.factor) %>% 
+    mutate_at(if('diafimaf1' %in% names(.))  'diafimaf1' else integer(0), as.factor) %>% 
+    mutate_at(if('diafimaf2' %in% names(.))  'diafimaf2' else integer(0),as.factor) %>% 
+    mutate_at(if('diafimaf3' %in% names(.))  'diafimaf3' else integer(0), as.factor) %>% 
+    mutate_at(if('mesiniaf1' %in% names(.))  'mesiniaf1' else integer(0), as.factor) %>% 
+    mutate_at(if('mesiniaf2' %in% names(.))  'mesiniaf2' else integer(0), as.factor) %>% 
+    mutate_at(if('mesiniaf3' %in% names(.))  'mesiniaf3' else integer(0), as.factor) %>% 
+    mutate_at(if('mesfimaf1' %in% names(.))  'mesfimaf1' else integer(0), as.factor) %>% 
+    mutate_at(if('mesfimaf2' %in% names(.))  'mesfimaf2' else integer(0), as.factor) %>% 
+    mutate_at(if('mesfimaf3' %in% names(.))  'mesfimaf3' else integer(0), as.factor) %>% 
+    mutate_at(if('qtdiasafas' %in% names(.))  'qtdiasafas' else integer(0), as.numeric) %>% 
+    mutate_at(if('anochegbr' %in% names(.))  'anochegbr' else integer(0), as.numeric) 
+}
+
 ### reorder ----
 reorder_rais_2005 <- function(rais_data) {
   rais_data %>%
