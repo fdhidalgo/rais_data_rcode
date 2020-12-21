@@ -1,8 +1,8 @@
-
 clean_rais_2013 <- function(rais_data) {
   rais_data %>% 
     as.data.table() %>% 
     rename_rais_2012() %>% 
+    dropTIPOESTBID_rais() %>% 
     make_rais_lazy() %>% 
     destring_rais_2012() %>% 
     trim_rais() %>% 
@@ -30,6 +30,9 @@ clean_rais_2013 <- function(rais_data) {
     natjuridica_rais() %>% 
     causafast_rais() %>% 
     diainiafmesiniaf_rais() %>%
+    dtnascimento_rais() %>% 
+    dtadmissao_rais() %>% 
     as_tibble() %>% 
+    rais_assertclass() %>%
     reorder_rais_2013() 
 }

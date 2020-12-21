@@ -1,10 +1,10 @@
-clean_rais_2012 <- function(rais_data) {
+clean_rais_2014 <- function(rais_data) {
   rais_data %>% 
     as.data.table() %>% 
-    rename_rais_2012() %>% 
+    rename_rais_2014() %>% 
     dropTIPOESTBID_rais() %>% 
     make_rais_lazy() %>% 
-    destring_rais_2012() %>% 
+    destring_rais_2014() %>%
     trim_rais() %>% 
     CPF_rais() %>% 
     identificad_rais() %>% 
@@ -12,6 +12,7 @@ clean_rais_2012 <- function(rais_data) {
     empem3112_rais %>% 
     tpvinculo_rais() %>% 
     causadesli_rais() %>% 
+    diadesli_rais() %>% 
     ocupacao94_rais_2012() %>%
     ocup2002_rais() %>% 
     tipoadm_rais() %>% 
@@ -34,6 +35,5 @@ clean_rais_2012 <- function(rais_data) {
     dtadmissao_rais() %>% 
     as_tibble() %>% 
     rais_assertclass() %>%
-    reorder_rais_2012() 
-    
+    reorder_rais_2014()
 }
