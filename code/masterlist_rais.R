@@ -240,8 +240,8 @@ dtadmissao_rais <- function(rais_data) {
 ### dtnascimento ----
 dtnascimento_rais <- function(rais_data) {
   rais_data %>% 
-    mutate(dtnascimento = if_else(nchar(dtnascimento)==7, paste0("0",dtnascimento),dtnascimento)%>% 
-             mutate(dtnascimento = dmy(dtnascimento)) )
+    mutate(dtnascimento = if_else(nchar(dtnascimento)==7, paste0("0",dtnascimento),dtnascimento))%>% 
+             mutate(dtnascimento = dmy(dtnascimento) )
 }
 ### genero ----
 genero_rais_2005 <- function(rais_data) {
