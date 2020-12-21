@@ -2,6 +2,7 @@ clean_rais_2014 <- function(rais_data) {
   rais_data %>% 
     as.data.table() %>% 
     rename_rais_2014() %>% 
+    dropTIPOESTBID_rais() %>% 
     make_rais_lazy() %>% 
     destring_rais_2014() %>%
     trim_rais() %>% 
