@@ -29,7 +29,7 @@ clean_rais_2012 <- function(rais_data) {
     natjuridica_rais() %>% 
     causafast_rais() %>% 
     diainiafmesiniaf_rais() %>% 
-    rais_assertclass %>% 
+    #rais_assertclass %>% 
     as_tibble() %>% 
     reorder_rais_2012() 
     
