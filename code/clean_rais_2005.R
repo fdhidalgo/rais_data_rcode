@@ -29,6 +29,7 @@ clean_rais_2005 <- function(rais_data) {
     tipoestbl_rais() %>% 
     commareplace_rais() %>% 
     natjuridica_rais() %>% 
+    rais_assertclass %>% 
     as_tibble() %>% 
     reorder_rais_2005()
 }
