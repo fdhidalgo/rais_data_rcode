@@ -29,7 +29,6 @@ clean_rais_2012 <- function(rais_data) {
     natjuridica_rais() %>% 
     causafast_rais() %>% 
     diainiafmesiniaf_rais() %>% 
-    dtnascimento_rais() %>% 
     dtadmissao_rais() %>% 
     as_tibble() %>% 
     rais_assertclass() %>%
