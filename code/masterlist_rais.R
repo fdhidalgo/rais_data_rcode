@@ -496,7 +496,7 @@ diainiafmesiniaf_rais <- function(rais_data) {
                                                                          "Nao se afastou" =  "-1"))
 }
 
-rais_assertclass <- function(rais_data){
+assertclass_rais <- function(rais_data){
   rais_data %>% 
     mutate_at(if('PIS' %in% names(.)) 'PIS' else integer(0), as.character) %>%
     mutate_at(if('numectps' %in% names(.)) 'numectps' else integer(0), as.character) %>% 
