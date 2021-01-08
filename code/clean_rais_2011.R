@@ -31,7 +31,7 @@ clean_rais_2011 <- function(rais_data) {
     diainiafmesiniaf_rais() %>% 
     dtadmissao_rais_2011() %>% 
     as_tibble() %>% 
-    rais_assertclass() %>%
+    assertclass_rais() %>%
     reorder_rais_2011() 
   
 }
