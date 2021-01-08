@@ -12,6 +12,12 @@ rename_rais_2014 <- function(rais_data) {
   setnames(rais_data, new = newnames ) # replacing old names with new
 }
 
+rename_rais_2015 <- function(rais_data) {
+  newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo", "causadesli", "mesdesli", "indalvara", "tipoadm", "tiposal", "ocupacao94", "grinstrucao", "sexotrabalhador", "nacionalidad", "raca_cor", "portdefic", "tamestab", "natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao", "remmedr", "remmedia", "remdezr", "remdezembro", "tempempr", "horascontr", "ultrem", "salcontr", "PIS", "dtnascimento","numectps", "CPF", "ceivinc", "identificad", "radiccnpj", "nome", "ocup2002", "clascnae20", "sbclas20", "tpdefic", "causafast1", "diainiaf1", "mesiniaf1", "diafimaf1", "mesfimaf1", "causafast2", "diainiaf2", "mesiniaf2", "diafimaf2", "mesfimaf2", "causafast3", "diainiaf3", "mesiniaf3", "diafimaf3", "mesfimaf3", "qtdiasafas", "idade", "diadesli","ibgesubsetor","anochegbr","cepestab","muntrab","razaosocial","remjan","remfev","remmar","remabr","remmai","remjun","remjul","remago","remset","remout","remnov")
+  setnames(rais_data, new = newnames ) # replacing old names with new
+}
+
+
 ### make lazy [same] ----
 make_rais_lazy <- function(rais_data) lazy_dt(rais_data)
 
@@ -35,6 +41,13 @@ destring_rais_2012 <- function(rais_data) {
 destring_rais_2014 <- function(rais_data) {
   var_need_destringing <- c("municipio", "tipoadm", "tpvinculo", "causadesli", "empem3112", "mesdesli", "diadesli","idade", "grinstrucao", "sexotrabalhador", "tamestab", "tipoestbl", "horascontr", "indceivinc", "tiposal", "indalvara", "indpat", "indsimples", "portdefic", "tpdefic", "raca_cor", "qtdiasafas", "causafast1","causafast2","causafast3",
                             "clascnae95")
+  rais_data %>% 
+    mutate_at(var_need_destringing, as.numeric)
+}
+
+destring_rais_2015 <- function(rais_data) {
+  var_need_destringing <- c("municipio", "tipoadm", "tpvinculo", "causadesli", "empem3112", "mesdesli", "diadesli","idade", "grinstrucao", "sexotrabalhador", "tamestab", "tipoestbl", "horascontr", "indceivinc", "tiposal", "indalvara", "indpat", "indsimples", "portdefic", "tpdefic", "raca_cor", "qtdiasafas", "causafast1","causafast2","causafast3",
+                            "clascnae95", "anochegbr")
   rais_data %>% 
     mutate_at(var_need_destringing, as.numeric)
 }
@@ -373,6 +386,16 @@ commareplace_rais <- function(rais_data) {
     # periods and then shifting to numeric 
     mutate_at(var_need_subbing, as.numeric)
 }
+
+commareplace_rais_2015 <- function(rais_data) {
+  var_need_subbing <- c("remdezembro", "remmedia", "remdezr", "remmedr", "tempempr", "salcontr", "ultrem","remjan","remfev","remmar","remabr","remmai","remjun","remjul","remago","remset","remout","remnov"
+)
+  rais_data %>% 
+    mutate_at(var_need_subbing, ~ str_replace_all(. ,"," ,".")) %>% # changing commas to 
+    # periods and then shifting to numeric 
+    mutate_at(var_need_subbing, as.numeric)
+}
+
 ### natjuridica ----
 natjuridica_rais <- function(rais_data) {
   rais_data %>%
