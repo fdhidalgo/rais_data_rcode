@@ -635,3 +635,12 @@ reorder_rais_2013 <- function(rais_data) {
              indceivinc, ceivinc, indalvara, indpat, indsimples, 
              ocupacao94)
 }
+reorder_rais_2014 <- function(rais_data) {
+  rais_data %>% 
+    relocate(PIS, CPF, numectps, nome, identificad, radiccnpj, municipio, 
+               tpvinculo,  empem3112,  tipoadm,  dtadmissao,  causadesli,  diadesli,  mesdesli,  
+               ocup2002,  grinstrucao,  genero,  dtnascimento,  idade,  nacionalidad,  portdefic , tpdefic,  raca_cor,  
+               remdezembro,  remdezr,  remmedia,  remmedr,  tempempr,  tiposal,  salcontr,  ultrem,  horascontr, 
+               sbclas20,  clascnae95,  clascnae20,  tamestab,  natjuridica,  tipoestbl, 
+               indceivinc,  ceivinc,  indalvara,  indpat,  indsimples)
+}
