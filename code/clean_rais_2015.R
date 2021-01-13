@@ -33,6 +33,5 @@ clean_rais_2015 <- function(rais_data) {
     dtnascimento_rais() %>% 
     dtadmissao_rais() %>% 
     as_tibble() %>% 
-    assertclass_rais() %>%
-    reorder_rais_2014()
+    assertclass_rais() 
 }
