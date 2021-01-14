@@ -13,6 +13,7 @@ clean_rais_2003 <- function(rais_data) {
     tpvinculo_rais() %>% 
     causadesli_rais() %>% 
     ocupacao94_rais_2005() %>% 
+    ocup2002_rais() %>%
     tipoadm_rais() %>% 
     tiposal_rais() %>% 
     indalvara_rais %>% 
