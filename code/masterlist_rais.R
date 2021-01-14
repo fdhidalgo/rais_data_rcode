@@ -3,6 +3,12 @@ rename_rais_2005 <- function(rais_data) {
   newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo","causadesli", "mesdesli","indalvara","tipoadm", "tiposal","ocupacao94","grinstrucao", "sexotrabalhador","nacionalidad", "raca_cor", "portdefic", "tamestab","natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao","remmedia" ,"remmedr" ,"remdezembro" ,"remdezr" ,"tempempr" ,"horascontr","ultrem" ,"salcontr" ,"PIS" ,"dtnascimento" ,"numectps" ,"CPF" ,"ceivinc" ,"identificad", "radiccnpj", "TIPOESTBID","nome", "diadesli",   "ocup2002" )
   setnames(rais_data, new = newnames ) # replacing old names with new
 }
+
+rename_rais_2006 <- function(rais_data) {
+  newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo","causadesli", "mesdesli","indalvara","tipoadm", "tiposal","ocupacao94","grinstrucao", "sexotrabalhador","nacionalidad", "raca_cor", "portdefic", "tamestab","natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao","remmedia" ,"remmedr" ,"remdezembro" ,"remdezr" ,"tempempr" ,"horascontr","ultrem" ,"salcontr" ,"PIS" ,"dtnascimento" ,"numectps" ,"CPF" ,"ceivinc" ,"identificad", "radiccnpj", "TIPOESTBID","nome", "diadesli",  "ocup2002", "clascnae20", "sbclas20", "tpdefic" )
+  setnames(rais_data, new = newnames ) # replacing old names with new
+}
+
 rename_rais_2012 <- function(rais_data) {
   newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo", "causadesli", "mesdesli", "indalvara", "tipoadm", "tiposal", "ocupacao94", "grinstrucao", "sexotrabalhador", "nacionalidad", "raca_cor", "portdefic", "tamestab", "natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao", "remmedr", "remmedia", "remdezr", "remdezembro", "tempempr", "horascontr", "ultrem", "salcontr", "PIS", "numectps", "CPF", "ceivinc", "identificad", "radiccnpj", "nome", "ocup2002", "clascnae20", "sbclas20", "tpdefic", "causafast1", "diainiaf1", "mesiniaf1", "diafimaf1", "mesfimaf1", "causafast2", "diainiaf2", "mesiniaf2", "diafimaf2", "mesfimaf2", "causafast3", "diainiaf3", "mesiniaf3", "diafimaf3", "mesfimaf3", "qtdiasafas", "idade")
   setnames(rais_data, new = newnames ) # replacing old names with new
@@ -29,6 +35,11 @@ dropTIPOESTBID_rais <- function(rais_data) {
 ### destring vars [dif] ----
 destring_rais_2005 <- function(rais_data) {
   var_need_destringing <- c("municipio", "tipoadm", "tpvinculo", "causadesli", "empem3112", "mesdesli", "grinstrucao", "tamestab", "tipoestbl", "horascontr", "indceivinc", "tiposal", "indalvara", "indpat", "indsimples", "portdefic", "raca_cor")
+  rais_data %>%
+    mutate_at(var_need_destringing, as.numeric)
+}
+destring_rais_2006 <- function(rais_data) {
+  var_need_destringing <- c("municipio", "tipoadm", "tpvinculo", "causadesli", "empem3112", "mesdesli", "grinstrucao", "tamestab", "tipoestbl", "horascontr", "indceivinc", "tiposal", "indalvara", "indpat", "indsimples", "portdefic","tpdefic", "raca_cor", "tipoadm")
   rais_data %>%
     mutate_at(var_need_destringing, as.numeric)
 }
@@ -167,7 +178,7 @@ causadesli_rais <- function(rais_data) {
 diadesli_rais <- function(rais_data) {
   rais_data %>%
     mutate(diadesli = as.numeric(recode(diadesli, "NAO DESL ANO" = "0")))
-
+  
 }
 ### ocupacao94  ----
 ocupacao94_rais_2005 <- function(rais_data) {
@@ -202,7 +213,7 @@ tipoadm_rais <- function(rais_data) {
                                 "EXERC PROVISORIO" = "9",
                                 "REQUISICAO" = "10",
                                 "NAO ADMITIDO NO ANO" = "0"
-
+                                
     ) )
 }
 ### tiposal  ----
@@ -249,7 +260,7 @@ grinstrucao_rais <- function(rais_data) {
                                     "Mestrado" = "10",
                                     "Doutorado" = "11"
     ))
-
+  
 }
 ### dtadmissao ----
 dtadmissao_rais <- function(rais_data) {
@@ -319,8 +330,8 @@ nacionalidad_rais <- function(rais_data) {
                                      "Sul-Africano" = "62",
                                      "Outros Africanos" = "70",
                                      "Outros" = "80"
-
-
+                                     
+                                     
     ))
 }
 ### raca_cor ----
@@ -397,7 +408,7 @@ commareplace_rais <- function(rais_data) {
 
 commareplace_rais_2015 <- function(rais_data) {
   var_need_subbing <- c("remdezembro", "remmedia", "remdezr", "remmedr", "tempempr", "salcontr", "ultrem","remjan","remfev","remmar","remabr","remmai","remjun","remjul","remago","remset","remout","remnov"
-)
+  )
   rais_data %>%
     mutate_at(var_need_subbing, ~ str_replace_all(. ,"," ,".")) %>% # changing commas to
     # periods and then shifting to numeric
@@ -498,7 +509,7 @@ natjuridica_rais <- function(rais_data) {
                                     "REPR DIPL ES" = "5029",
                                     "OUT INST EXT" = "5037",
                                     "IGNORADO" = " -1"
-
+                                    
     ))
 }
 
@@ -515,8 +526,8 @@ causafast_rais <- function(rais_data) {
                                                           "Servico militar obrigatorio" = "60",
                                                           "Licenca sem vencimento/remuneracao" = "70"
     ))
-
-
+  
+  
 }
 ### diainiafmesiniaf ----
 diainiafmesiniaf_rais <- function(rais_data) {
@@ -594,4 +605,3 @@ assertclass_rais <- function(rais_data){
     mutate_at(if('qtdiasafas' %in% names(.))  'qtdiasafas' else integer(0), as.numeric) %>%
     mutate_at(if('anochegbr' %in% names(.))  'anochegbr' else integer(0), as.numeric)
 }
-
