@@ -15,6 +15,7 @@ clean_rais_2006 <- function(rais_data) {
     diadesli_rais() %>% 
     ocupacao94_rais_2005() %>% 
     tipoadm_rais() %>% 
+    ocup2002_rais() %>%
     tiposal_rais() %>% 
     indalvara_rais %>% 
     indpat_rais() %>% 
