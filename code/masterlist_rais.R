@@ -33,8 +33,13 @@ dropTIPOESTBID_rais <- function(rais_data) {
     select(everything(), -TIPOESTBID)
 }
 ### destring vars [dif] ----
+destring_rais_2004 <- function(rais_data) {
+  var_need_destringing <- c("municipio", "tipoadm", "tpvinculo", "causadesli","diadesli", "empem3112", "mesdesli", "grinstrucao", "tamestab", "tipoestbl", "horascontr", "indceivinc", "tiposal", "indalvara", "indpat", "indsimples", "portdefic", "raca_cor", "tipoadm")
+  rais_data %>%
+    mutate_at(var_need_destringing, as.numeric)
+}
 destring_rais_2005 <- function(rais_data) {
-  var_need_destringing <- c("municipio", "tipoadm", "tpvinculo", "causadesli", "empem3112", "mesdesli", "grinstrucao", "tamestab", "tipoestbl", "horascontr", "indceivinc", "tiposal", "indalvara", "indpat", "indsimples", "portdefic", "raca_cor")
+  var_need_destringing <- c("municipio", "tipoadm", "tpvinculo", "causadesli", "empem3112", "mesdesli", "grinstrucao","sexotrabalhador", "tamestab", "tipoestbl", "horascontr", "indceivinc", "tiposal", "indalvara", "indpat", "indsimples", "portdefic", "raca_cor")
   rais_data %>%
     mutate_at(var_need_destringing, as.numeric)
 }
@@ -174,11 +179,12 @@ causadesli_rais <- function(rais_data) {
                                    "Aposentadoria especial, sem rescisao contratual" = "80"
     ) )
 }
-### diadesli  ----
+### diadesli  ---
+
 diadesli_rais <- function(rais_data) {
   rais_data %>%
     mutate(diadesli = as.numeric(recode(diadesli, "NAO DESL ANO" = "0")))
-  
+
 }
 ### ocupacao94  ----
 ocupacao94_rais_2005 <- function(rais_data) {
@@ -277,10 +283,14 @@ dtadmissao_rais_2011 <- function(rais_data) {
 ### dtnascimento ----
 dtnascimento_rais <- function(rais_data) {
   rais_data %>%
-    mutate(dtnascimento = if_else(nchar(dtnascimento)==7, paste0("0",dtnascimento),dtnascimento))%>%
+    mutate(dtnascimento = if_else(nchar(dtnascimento)==7, paste0("0",dtnascimento), dtnascimento))%>%
     mutate(dtnascimento = dmy(dtnascimento) )
 }
 ### genero ----
+genero_rais_2004 <- function(rais_data) {
+  rais_data %>%
+    mutate(genero	= as_factor(if_else(sexotrabalhador == 1,  "Masculino","Feminino")))
+}
 genero_rais_2005 <- function(rais_data) {
   rais_data %>%
     mutate(genero	= as_factor(if_else(tolower(sexotrabalhador) == "masculino",  "Masculino","Feminino")))
