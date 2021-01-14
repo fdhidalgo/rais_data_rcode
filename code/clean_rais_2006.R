@@ -1,10 +1,10 @@
 clean_rais_2006 <- function(rais_data) {
   rais_data %>% 
     as.data.table() %>% 
-    rename_rais_2006() %>% ###
+    rename_rais_2006() %>% 
     make_rais_lazy() %>% 
     dropTIPOESTBID_rais() %>% 
-    destring_rais_2006() %>% ###
+    destring_rais_2006() %>% 
     trim_rais() %>% 
     CPF_rais() %>% 
     identificad_rais() %>% 
