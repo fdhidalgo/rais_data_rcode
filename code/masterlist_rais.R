@@ -1,6 +1,10 @@
 ### rename rais [dif] ----
+rename_rais_2002 <- function(rais_data) {
+  newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo","causadesli", "mesdesli","indalvara", "tiposal","ocupacao94","grinstrucao", "sexotrabalhador","nacionalidad", "tamestab","natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao","remdezr", "remdezembro", "remmedr", "remmedia"   ,"tempempr" ,"horascontr","ultrem" ,"salcontr" ,"PIS" ,"dtnascimento" ,"numectps" ,"CPF" ,"ceivinc" ,"identificad", "radiccnpj", "TIPOESTBID","nome" )
+  setnames(rais_data, new = newnames ) # replacing old names with new
+}
 rename_rais_2003 <- function(rais_data) {
-  newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo","causadesli", "mesdesli","indalvara","tipoadm", "tiposal","ocupacao94","grinstrucao", "sexotrabalhador","nacionalidad", "raca_cor", "portdefic", "tamestab","natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao","remdezr", "remdezembro", "remmedr", "remmedia"   ,"tempempr" ,"horascontr","ultrem" ,"salcontr" ,"PIS" ,"dtnascimento" ,"numectps" ,"CPF" ,"ceivinc" ,"identificad", "radiccnpj", "TIPOESTBID","nome", "diadesli",   "ocup2002" )
+  newnames <- c("municipio", "clascnae95", "empem3112", "causadesli", "tpvinculo", "mesdesli","indalvara","tipoadm", "tiposal","ocupacao94","grinstrucao", "sexotrabalhador","nacionalidad", "raca_cor", "portdefic", "tamestab","natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao","remdezr", "remdezembro", "remmedr", "remmedia"   ,"tempempr" ,"horascontr","ultrem" ,"salcontr" ,"PIS" ,"dtnascimento" ,"numectps" ,"CPF" ,"ceivinc" ,"identificad", "radiccnpj", "TIPOESTBID","nome", "diadesli",   "ocup2002" )
   setnames(rais_data, new = newnames ) # replacing old names with new
 }
 rename_rais_2005 <- function(rais_data) {
@@ -37,13 +41,19 @@ dropTIPOESTBID_rais <- function(rais_data) {
     select(everything(), -TIPOESTBID)
 }
 ### destring vars [dif] ----
+destring_rais_2002 <- function(rais_data) {
+  var_need_destringing <- c("municipio", "empem3112", "mesdesli", "grinstrucao", "tamestab", "tipoestbl","natjuridica", "horascontr", "indceivinc", "tiposal", "indalvara", "indpat", "indsimples")
+  rais_data %>%
+    mutate_at(var_need_destringing, as.numeric)
+}
+
 destring_rais_2003 <- function(rais_data) {
-  var_need_destringing <- c("municipio", "tipoadm", "tpvinculo", "causadesli","diadesli", "empem3112", "mesdesli", "grinstrucao", "tamestab", "tipoestbl","natjuridica", "horascontr", "indceivinc", "tiposal", "indalvara", "indpat", "indsimples", "portdefic", "raca_cor", "tipoadm")
+  var_need_destringing <- c("municipio", "tipoadm", "tpvinculo", "causadesli","diadesli", "empem3112", "mesdesli", "grinstrucao", "tamestab", "tipoestbl","natjuridica", "horascontr", "indceivinc", "tiposal", "indalvara", "indpat", "indsimples", "portdefic", "raca_cor")
   rais_data %>%
     mutate_at(var_need_destringing, as.numeric)
 }
 destring_rais_2004 <- function(rais_data) {
-  var_need_destringing <- c("municipio", "tipoadm", "tpvinculo", "causadesli","diadesli", "empem3112", "mesdesli", "grinstrucao", "tamestab", "tipoestbl", "horascontr", "indceivinc", "tiposal", "indalvara", "indpat", "indsimples", "portdefic", "raca_cor", "tipoadm")
+  var_need_destringing <- c("municipio", "tipoadm", "tpvinculo", "causadesli","diadesli", "empem3112", "mesdesli", "grinstrucao", "tamestab", "tipoestbl", "horascontr", "indceivinc", "tiposal", "indalvara", "indpat", "indsimples", "portdefic", "raca_cor")
   rais_data %>%
     mutate_at(var_need_destringing, as.numeric)
 }
