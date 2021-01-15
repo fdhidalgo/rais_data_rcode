@@ -1,4 +1,8 @@
 ### rename rais [dif] ----
+rename_rais_2003 <- function(rais_data) {
+  newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo","causadesli", "mesdesli","indalvara","tipoadm", "tiposal","ocupacao94","grinstrucao", "sexotrabalhador","nacionalidad", "raca_cor", "portdefic", "tamestab","natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao","remdezr", "remdezembro", "remmedr", "remmedia"   ,"tempempr" ,"horascontr","ultrem" ,"salcontr" ,"PIS" ,"dtnascimento" ,"numectps" ,"CPF" ,"ceivinc" ,"identificad", "radiccnpj", "TIPOESTBID","nome", "diadesli",   "ocup2002" )
+  setnames(rais_data, new = newnames ) # replacing old names with new
+}
 rename_rais_2005 <- function(rais_data) {
   newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo","causadesli", "mesdesli","indalvara","tipoadm", "tiposal","ocupacao94","grinstrucao", "sexotrabalhador","nacionalidad", "raca_cor", "portdefic", "tamestab","natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao","remmedia" ,"remmedr" ,"remdezembro" ,"remdezr" ,"tempempr" ,"horascontr","ultrem" ,"salcontr" ,"PIS" ,"dtnascimento" ,"numectps" ,"CPF" ,"ceivinc" ,"identificad", "radiccnpj", "TIPOESTBID","nome", "diadesli",   "ocup2002" )
   setnames(rais_data, new = newnames ) # replacing old names with new
