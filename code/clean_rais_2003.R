@@ -1,7 +1,7 @@
 clean_rais_2003 <- function(rais_data) {
   rais_data %>% 
     as.data.table() %>% 
-    rename_rais_2005() %>% 
+    rename_rais_2003() %>% 
     make_rais_lazy() %>% 
     dropTIPOESTBID_rais() %>% 
     destring_rais_2003() %>% 
