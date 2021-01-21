@@ -88,6 +88,11 @@ destring_rais_2007 <- function(rais_data) {
   rais_data %>%
     mutate_at(var_need_destringing, as.numeric)
 }
+destring_rais_2008 <- function(rais_data) {
+  var_need_destringing <- c("municipio", "tipoadm", "tpvinculo", "causadesli", "empem3112", "mesdesli", "grinstrucao", "tamestab", "tipoestbl", "horascontr", "indceivinc", "tiposal", "indalvara", "indpat", "indsimples", "portdefic","tpdefic", "raca_cor", "tipoadm", "causafast1","causafast2","causafast3",  "qtdiasafas", "clascnae95")
+  rais_data %>%
+    mutate_at(var_need_destringing, as.numeric)
+}
 destring_rais_2012 <- function(rais_data) {
   var_need_destringing <- c("municipio", "tipoadm", "tpvinculo", "causadesli", "empem3112", "mesdesli", "idade", "grinstrucao", "sexotrabalhador", "tamestab", "tipoestbl", "horascontr", "indceivinc", "tiposal", "indalvara", "indpat", "indsimples", "portdefic", "tpdefic", "raca_cor", "qtdiasafas", "causafast1","causafast2","causafast3",
                             "clascnae95")
