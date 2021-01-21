@@ -1,4 +1,9 @@
 ### rename rais [dif] ----
+rename_rais_2001 <- function(rais_data) {
+  newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo","causadesli", "mesdesli","indalvara", "tipoadm","ocupacao94","grinstrucao", "sexotrabalhador","nacionalidad", "tamestab","natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "mesadmissao", "remdezembro", "remdezr", "remmedia","remmedr", "tempempr" ,"horascontr", "PIS", "ceivinc", "identificad", "radiccnpj","idade", "ibgesubsetor")
+  setnames(rais_data, new = newnames ) # replacing old names with new
+}
+
 rename_rais_2002 <- function(rais_data) {
   newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo","causadesli", "mesdesli","indalvara", "tiposal","ocupacao94","grinstrucao", "sexotrabalhador","nacionalidad", "tamestab","natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao","remdezr", "remdezembro", "remmedr", "remmedia"   ,"tempempr" ,"horascontr","ultrem" ,"salcontr" ,"PIS" ,"dtnascimento" ,"numectps" ,"CPF" ,"ceivinc" ,"identificad", "radiccnpj", "TIPOESTBID","nome" )
   setnames(rais_data, new = newnames ) # replacing old names with new
@@ -41,6 +46,12 @@ dropTIPOESTBID_rais <- function(rais_data) {
     select(everything(), -TIPOESTBID)
 }
 ### destring vars [dif] ----
+destring_rais_2001 <- function(rais_data) {
+  var_need_destringing <- c("municipio", "empem3112","tpvinculo", "mesdesli", "grinstrucao", "tamestab", "tipoestbl","natjuridica", "horascontr", "indceivinc","mesadmissao", "idade", "indalvara", "indpat", "indsimples")
+  rais_data %>%
+    mutate_at(var_need_destringing, as.numeric)
+}
+
 destring_rais_2002 <- function(rais_data) {
   var_need_destringing <- c("municipio", "empem3112", "mesdesli", "grinstrucao", "tamestab", "tipoestbl","natjuridica", "horascontr", "indceivinc", "tiposal", "indalvara", "indpat", "indsimples")
   rais_data %>%
@@ -100,6 +111,10 @@ trim_rais <- function(rais_data) {
   rais_data %>%
     mutate_at(c("PIS","CPF","nome", "identificad", "radiccnpj" ),str_trim)
 }
+trim_rais_2001 <- function(rais_data) {
+  rais_data %>%
+    mutate_at(c("PIS", "identificad", "radiccnpj"),str_trim)
+}
 ### cpf [same] ----
 CPF_rais <- function(rais_data) {
   rais_data %>%
@@ -140,6 +155,42 @@ empem3112_rais <- function(rais_data) {
   rais_data %>%
     mutate(empem3112 = fct_recode(as_factor(empem3112), "Nao" = "0" ,  "Sim" = "1") )
 }
+### ibgesubsetor
+
+ibgesubsetor_rais <- function(rais_data) {
+  rais_data %>% 
+    mutate(ibgesubsetor = if_else(ibgesubsetor=="{ñ"|ibgesubsetor=="", "26", ibgesubsetor)) %>% 
+    mutate(ibgesubsetor = fct_recode(as_factor(ibgesubsetor),
+                                  "EXTR MINERAL" = "1",
+                                  "MIN NAO MET" = "2",
+                                  "IND METAL" = "3",
+                                  "IND MECANICA" = "4",
+                                  "ELET E COMUN" = "5",
+                                  "MAT TRANSP" = "6",
+                                  "MAD E MOBIL" = "7",
+                                  "PAPEL E GRAF" = "8",
+                                  "BOR FUN COUR" = "9",
+                                  "IND QUIMICA" = "10",
+                                  "IND TEXTIL" = "11",
+                                  "IND CALCADOS" = "12",
+                                  "ALIM E BEB" = "13",
+                                  "SERV UTIL PUB" = "14",
+                                  "CONSTR CIVIL" = "15",
+                                  "COM VAREJ" = "16",
+                                  "COM ATACAD" = "17",
+                                  "INST FINANC" = "18",
+                                  "ADM TEC PROF" = "19",
+                                  "TRAN E COMUN" = "20",
+                                  "ALOJ COMUNIC" = "21",
+                                  "MED ODON VET" = "22",
+                                  "ENSINO" = "23",
+                                  "ADM PUBLICA" = "24",
+                                  "AGRICULTURA" = "25",
+                                  "OUTROS/IGNORADOS" = "26"
+                                  
+    ))
+}
+
 ### tpvinculo  ----
 tpvinculo_rais <- function(rais_data) {
   rais_data %>%
@@ -203,7 +254,7 @@ causadesli_rais <- function(rais_data) {
 diadesli_rais <- function(rais_data) {
   rais_data %>%
     mutate(diadesli = as.numeric(recode(diadesli, "NAO DESL ANO" = "0")))
-
+  
 }
 ### ocupacao94  ----
 ocupacao94_rais_2005 <- function(rais_data) {
@@ -427,6 +478,13 @@ tipoestbl_rais <- function(rais_data) {
     ))
 }
 ### commareplace ----
+commareplace_rais_2001 <- function(rais_data) {
+  var_need_subbing <- c("remdezembro", "remmedia", "remdezr", "remmedr", "tempempr")
+  rais_data %>%
+    mutate_at(var_need_subbing, ~ str_replace_all(. ,"," ,".")) %>% # changing commas to
+    # periods and then shifting to numeric
+    mutate_at(var_need_subbing, as.numeric)
+}
 commareplace_rais <- function(rais_data) {
   var_need_subbing <- c("remdezembro", "remmedia", "remdezr", "remmedr", "tempempr", "salcontr", "ultrem")
   rais_data %>%
