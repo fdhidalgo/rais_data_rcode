@@ -26,6 +26,11 @@ rename_rais_2007 <- function(rais_data) {
   newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo","causadesli", "mesdesli","indalvara","tipoadm", "tiposal","ocupacao94","grinstrucao", "sexotrabalhador","nacionalidad", "raca_cor", "portdefic", "tamestab","natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao","remmedia" ,"remmedr" ,"remdezembro" ,"remdezr" ,"tempempr" ,"horascontr","ultrem" ,"salcontr" ,"PIS" ,"dtnascimento" ,"numectps" ,"CPF" ,"ceivinc" ,"identificad", "radiccnpj", "TIPOESTBID","nome", "diadesli",  "ocup2002", "clascnae20", "sbclas20", "tpdefic", "causafast1", "diainiaf1", "mesiniaf1", "diafimaf1", "mesfimaf1", "causafast2", "diainiaf2", "mesiniaf2", "diafimaf2", "mesfimaf2", "causafast3", "diainiaf3", "mesiniaf3", "diafimaf3", "mesfimaf3", "qtdiasafas" )
   setnames(rais_data, new = newnames ) # replacing old names with new
 }
+rename_rais_2009 <- function(rais_data) {
+  newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo","causadesli", "mesdesli","indalvara","tipoadm", "tiposal","ocupacao94","grinstrucao", "sexotrabalhador","nacionalidad", "raca_cor", "portdefic", "tamestab","natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao","remdezr" ,"remdezembro" , "remmedr" ,"remmedia" ,"tempempr" ,"horascontr","ultrem" ,"salcontr" ,"PIS" ,"dtnascimento" ,"numectps" ,"CPF" ,"ceivinc" ,"identificad", "radiccnpj", "TIPOESTBID","nome","ocup2002", "clascnae20", "sbclas20", "tpdefic", "causafast1", "diainiaf1", "mesiniaf1", "diafimaf1", "mesfimaf1", "causafast2", "diainiaf2", "mesiniaf2", "diafimaf2", "mesfimaf2", "causafast3", "diainiaf3", "mesiniaf3", "diafimaf3", "mesfimaf3", "qtdiasafas" )
+  setnames(rais_data, new = newnames ) # replacing old names with new
+}
+
 
 rename_rais_2012 <- function(rais_data) {
   newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo", "causadesli", "mesdesli", "indalvara", "tipoadm", "tiposal", "ocupacao94", "grinstrucao", "sexotrabalhador", "nacionalidad", "raca_cor", "portdefic", "tamestab", "natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao", "remmedr", "remmedia", "remdezr", "remdezembro", "tempempr", "horascontr", "ultrem", "salcontr", "PIS", "numectps", "CPF", "ceivinc", "identificad", "radiccnpj", "nome", "ocup2002", "clascnae20", "sbclas20", "tpdefic", "causafast1", "diainiaf1", "mesiniaf1", "diafimaf1", "mesfimaf1", "causafast2", "diainiaf2", "mesiniaf2", "diafimaf2", "mesfimaf2", "causafast3", "diainiaf3", "mesiniaf3", "diafimaf3", "mesfimaf3", "qtdiasafas", "idade")
@@ -176,33 +181,33 @@ ibgesubsetor_rais <- function(rais_data) {
   rais_data %>% 
     mutate(ibgesubsetor = if_else(ibgesubsetor=="{ñ"|ibgesubsetor=="", "26", ibgesubsetor)) %>% 
     mutate(ibgesubsetor = fct_recode(as_factor(ibgesubsetor),
-                                  "EXTR MINERAL" = "1",
-                                  "MIN NAO MET" = "2",
-                                  "IND METAL" = "3",
-                                  "IND MECANICA" = "4",
-                                  "ELET E COMUN" = "5",
-                                  "MAT TRANSP" = "6",
-                                  "MAD E MOBIL" = "7",
-                                  "PAPEL E GRAF" = "8",
-                                  "BOR FUN COUR" = "9",
-                                  "IND QUIMICA" = "10",
-                                  "IND TEXTIL" = "11",
-                                  "IND CALCADOS" = "12",
-                                  "ALIM E BEB" = "13",
-                                  "SERV UTIL PUB" = "14",
-                                  "CONSTR CIVIL" = "15",
-                                  "COM VAREJ" = "16",
-                                  "COM ATACAD" = "17",
-                                  "INST FINANC" = "18",
-                                  "ADM TEC PROF" = "19",
-                                  "TRAN E COMUN" = "20",
-                                  "ALOJ COMUNIC" = "21",
-                                  "MED ODON VET" = "22",
-                                  "ENSINO" = "23",
-                                  "ADM PUBLICA" = "24",
-                                  "AGRICULTURA" = "25",
-                                  "OUTROS/IGNORADOS" = "26"
-                                  
+                                     "EXTR MINERAL" = "1",
+                                     "MIN NAO MET" = "2",
+                                     "IND METAL" = "3",
+                                     "IND MECANICA" = "4",
+                                     "ELET E COMUN" = "5",
+                                     "MAT TRANSP" = "6",
+                                     "MAD E MOBIL" = "7",
+                                     "PAPEL E GRAF" = "8",
+                                     "BOR FUN COUR" = "9",
+                                     "IND QUIMICA" = "10",
+                                     "IND TEXTIL" = "11",
+                                     "IND CALCADOS" = "12",
+                                     "ALIM E BEB" = "13",
+                                     "SERV UTIL PUB" = "14",
+                                     "CONSTR CIVIL" = "15",
+                                     "COM VAREJ" = "16",
+                                     "COM ATACAD" = "17",
+                                     "INST FINANC" = "18",
+                                     "ADM TEC PROF" = "19",
+                                     "TRAN E COMUN" = "20",
+                                     "ALOJ COMUNIC" = "21",
+                                     "MED ODON VET" = "22",
+                                     "ENSINO" = "23",
+                                     "ADM PUBLICA" = "24",
+                                     "AGRICULTURA" = "25",
+                                     "OUTROS/IGNORADOS" = "26"
+                                     
     ))
 }
 
