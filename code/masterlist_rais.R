@@ -1,45 +1,100 @@
-### rename rais [dif] ----
-rename_rais_2001 <- function(rais_data) {
-  newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo","causadesli", "mesdesli","indalvara", "tipoadm","ocupacao94","grinstrucao", "sexotrabalhador","nacionalidad", "tamestab","natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "mesadmissao", "remdezembro", "remdezr", "remmedia","remmedr", "tempempr" ,"horascontr", "PIS", "ceivinc", "identificad", "radiccnpj","idade", "ibgesubsetor")
+### rename rais ----
+
+newnames_rais <- function(rais_data){
+  names(rais_data) %>% 
+    str_remove_all("[//(//)]") %>%
+    str_remove_all(fixed("$")) %>%
+    str_remove_all("\\." )%>%
+    str_remove_all("\\s") %>% 
+    str_remove_all("�") %>% 
+    str_to_lower() %>% 
+    modify_if(str_detect(., pattern = "anochegadabrasil"), ~sprintf("anochegbr", .)) %>% 
+    modify_if(str_detect(., pattern = "motivodesligamento"), ~sprintf("causadesli", .)) %>%
+    modify_if(str_detect(., pattern = "causaafastamento1"), ~sprintf("causafast1", .)) %>%
+    modify_if(str_detect(., pattern = "causaafastamento2"), ~sprintf("causafast2", .)) %>%
+    modify_if(str_detect(., pattern = "causaafastamento3"), ~sprintf("causafast3", .)) %>%
+    modify_if(str_detect(., pattern = "\\bceivinculado\\b"), ~sprintf("ceivinc", .)) %>%
+    modify_if(str_detect(., pattern = "cnae20classe"), ~sprintf("clascnae20", .)) %>%
+    modify_if(str_detect(., pattern = "cnae95classe"), ~sprintf("clascnae95", .)) %>%
+    modify_if(str_detect(., pattern = "cpf"), ~sprintf("CPF", .)) %>%
+    modify_if(str_detect(., pattern = "diadedesligamento|diadesl"), ~sprintf("diadesli", .)) %>%
+    modify_if(str_detect(., pattern = "diafimaf1"), ~sprintf("diafimaf1", .)) %>%
+    modify_if(str_detect(., pattern = "diafimaf2"), ~sprintf("diafimaf2", .)) %>%
+    modify_if(str_detect(., pattern = "diafimaf3"), ~sprintf("diafimaf3", .)) %>%
+    modify_if(str_detect(., pattern = "diainiaf1"), ~sprintf("diainiaf1", .)) %>%
+    modify_if(str_detect(., pattern = "diainiaf2"), ~sprintf("diainiaf2", .)) %>%
+    modify_if(str_detect(., pattern = "diainiaf3"), ~sprintf("diainiaf3", .)) %>%
+    modify_if(str_detect(., pattern = "dataadmissodeclarada"), ~sprintf("dtadmissao", .)) %>%
+    modify_if(str_detect(., pattern = "datadenascimento|dtnasciment"), ~sprintf("dtnascimento", .)) %>%
+    modify_if(str_detect(., pattern = "vnculoativo3112"), ~sprintf("empem3112", .)) %>%
+    modify_if(str_detect(., pattern = " "), ~sprintf("faixaetaria", .)) %>%
+    modify_if(str_detect(., pattern = " "), ~sprintf("genero", .)) %>%
+    modify_if(str_detect(., pattern = "escolaridadeaps2005|grauinstr"), ~sprintf("grinstrucao", .)) %>%
+    modify_if(str_detect(., pattern = "qtdhoracontr"), ~sprintf("horascontr", .)) %>%
+    modify_if(str_detect(., pattern = " "), ~sprintf("ibgeatividade", .)) %>%
+    modify_if(str_detect(., pattern = " "), ~sprintf("ibgesubsetor", .)) %>%
+    modify_if(str_detect(., pattern = " "), ~sprintf("idade", .)) %>%
+    modify_if(str_detect(., pattern = "cnpjcei"), ~sprintf("identificad", .)) %>%
+    modify_if(str_detect(., pattern = "indvnculoalvar"), ~sprintf("indalvara", .)) %>%
+    modify_if(str_detect(., pattern = "indceivinculado"), ~sprintf("indceivinc", .)) %>%
+    modify_if(str_detect(., pattern = "indestabparticipapat"), ~sprintf("indpat", .)) %>%
+    modify_if(str_detect(., pattern = " "), ~sprintf("indsimples", .)) %>%
+    modify_if(str_detect(., pattern = "msadmisso"), ~sprintf("mesadmissao", .)) %>%
+    modify_if(str_detect(., pattern = "msdesligamento|mesdeslig"), ~sprintf("mesdesli", .)) %>%
+    modify_if(str_detect(., pattern = "msfimaf1"), ~sprintf("mesfimaf1", .)) %>%
+    modify_if(str_detect(., pattern = "msfimaf2"), ~sprintf("mesfimaf2", .)) %>%
+    modify_if(str_detect(., pattern = "msfimaf3"), ~sprintf("mesfimaf3", .)) %>%
+    modify_if(str_detect(., pattern = "msiniaf1"), ~sprintf("mesiniaf1", .)) %>%
+    modify_if(str_detect(., pattern = "msiniaf2"), ~sprintf("mesiniaf2", .)) %>%
+    modify_if(str_detect(., pattern = "msiniaf3"), ~sprintf("mesiniaf3", .)) %>%
+    modify_if(str_detect(., pattern = "municpio"), ~sprintf("municipio", .)) %>%
+    modify_if(str_detect(., pattern = "nacionalidade"), ~sprintf("nacionalidad", .)) %>%
+    modify_if(str_detect(., pattern = "naturezajurdica|naturjur"), ~sprintf("natjuridica", .)) %>%
+    modify_if(str_detect(., pattern = "nometrabalhador"), ~sprintf("nome", .)) %>%
+    modify_if(str_detect(., pattern = "nmeroctps|numctps"), ~sprintf("numectps", .)) %>%
+    modify_if(str_detect(., pattern = "cboocupao2002"), ~sprintf("ocup2002", .)) %>%
+    modify_if(str_detect(., pattern = "cbo94ocupao|ocupacao"), ~sprintf("ocupacao94", .)) %>%
+    modify_if(str_detect(., pattern = "pis"), ~sprintf("PIS", .)) %>%
+    modify_if(str_detect(., pattern = "indportadordefic"), ~sprintf("portdefic", .)) %>%
+    modify_if(str_detect(., pattern = "qtddiasafastamento"), ~sprintf("qtdiasafas", .)) %>%
+    modify_if(str_detect(., pattern = "raacor"), ~sprintf("raca_cor", .)) %>%
+    modify_if(str_detect(., pattern = "cnpjraiz"), ~sprintf("radiccnpj", .)) %>%
+    modify_if(str_detect(., pattern = "razosocial"), ~sprintf("razaosocial", .)) %>%
+    modify_if(str_detect(., pattern = "vlremundezembrosm"), ~sprintf("remdezembro", .)) %>%
+    modify_if(str_detect(., pattern = "vlremundezembronom"), ~sprintf("remdezr", .)) %>%
+    modify_if(str_detect(., pattern = "vlremunmdiasm"), ~sprintf("remmedia", .)) %>%
+    modify_if(str_detect(., pattern = "vlremunmdianom"), ~sprintf("remmedr", .)) %>%
+    modify_if(str_detect(., pattern = "vlremjaneirocc"), ~sprintf("remjan", .)) %>%
+    modify_if(str_detect(., pattern = "vlremfevereirocc"), ~sprintf("remfev", .)) %>%
+    modify_if(str_detect(., pattern = "vlremmarocc"), ~sprintf("remmar", .)) %>%
+    modify_if(str_detect(., pattern = "vlremabrilcc"), ~sprintf("remabr", .)) %>%
+    modify_if(str_detect(., pattern = "vlremmaiocc"), ~sprintf("remmai", .)) %>%
+    modify_if(str_detect(., pattern = "vlremjunhocc"), ~sprintf("remjun", .)) %>%
+    modify_if(str_detect(., pattern = "vlremjulhocc"), ~sprintf("remjul", .)) %>%
+    modify_if(str_detect(., pattern = "vlremagostocc"), ~sprintf("remago", .)) %>%
+    modify_if(str_detect(., pattern = "vlremsetembrocc"), ~sprintf("remset", .)) %>%
+    modify_if(str_detect(., pattern = "vlremoutubrocc"), ~sprintf("remout", .)) %>%
+    modify_if(str_detect(., pattern = "vlremnovembrocc"), ~sprintf("remnov", .)) %>%
+    modify_if(str_detect(., pattern = "vlsalriocontratual"), ~sprintf("salcontr", .)) %>%
+    modify_if(str_detect(., pattern = "cnae20subclasse"), ~sprintf("sbclas20", .)) %>%
+    modify_if(str_detect(., pattern = "genero|sexo"), ~sprintf("sexotrabalhador", .)) %>%
+    modify_if(str_detect(., pattern = "tamanhoestabelecimento"), ~sprintf("tamestab", .)) %>%
+    modify_if(str_detect(., pattern = "tempoemprego"), ~sprintf("tempempr", .)) %>%
+    modify_if(str_detect(., pattern = "tipoadmisso"), ~sprintf("tipoadm", .)) %>%
+    modify_if(str_detect(., pattern = "tipoestab"), ~sprintf("tipoestbl", .)) %>%
+    modify_if(str_detect(., pattern = "tipoestbid|tipoestibid"), ~sprintf("TIPOESTBID", .)) %>%
+    modify_if(str_detect(., pattern = "tiposalrio"), ~sprintf("tiposal", .)) %>%
+    modify_if(str_detect(., pattern = "tipodefic"), ~sprintf("tpdefic", .)) %>%
+    modify_if(str_detect(., pattern = "tipovnculo|tpvincl"), ~sprintf("tpvinculo", .)) %>%
+    modify_if(str_detect(., pattern = "vlltimaremuneraoano"), ~sprintf("ultrem", .))
+}
+
+rename_rais <- function(rais_data) {
+  newnames <- newnames_rais(rais_data)
   setnames(rais_data, new = newnames ) # replacing old names with new
 }
 
-rename_rais_2002 <- function(rais_data) {
-  newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo","causadesli", "mesdesli","indalvara", "tiposal","ocupacao94","grinstrucao", "sexotrabalhador","nacionalidad", "tamestab","natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao","remdezr", "remdezembro", "remmedr", "remmedia"   ,"tempempr" ,"horascontr","ultrem" ,"salcontr" ,"PIS" ,"dtnascimento" ,"numectps" ,"CPF" ,"ceivinc" ,"identificad", "radiccnpj", "TIPOESTBID","nome" )
-  setnames(rais_data, new = newnames ) # replacing old names with new
-}
-rename_rais_2003 <- function(rais_data) {
-  newnames <- c("municipio", "clascnae95", "empem3112", "causadesli", "tpvinculo", "mesdesli","indalvara","tipoadm", "tiposal","ocupacao94","grinstrucao", "sexotrabalhador","nacionalidad", "raca_cor", "portdefic", "tamestab","natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao","remdezr", "remdezembro", "remmedr", "remmedia"   ,"tempempr" ,"horascontr","ultrem" ,"salcontr" ,"PIS" ,"dtnascimento" ,"numectps" ,"CPF" ,"ceivinc" ,"identificad", "radiccnpj", "TIPOESTBID","nome", "diadesli",   "ocup2002" )
-  setnames(rais_data, new = newnames ) # replacing old names with new
-}
-rename_rais_2005 <- function(rais_data) {
-  newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo","causadesli", "mesdesli","indalvara","tipoadm", "tiposal","ocupacao94","grinstrucao", "sexotrabalhador","nacionalidad", "raca_cor", "portdefic", "tamestab","natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao","remmedia" ,"remmedr" ,"remdezembro" ,"remdezr" ,"tempempr" ,"horascontr","ultrem" ,"salcontr" ,"PIS" ,"dtnascimento" ,"numectps" ,"CPF" ,"ceivinc" ,"identificad", "radiccnpj", "TIPOESTBID","nome", "diadesli",   "ocup2002" )
-  setnames(rais_data, new = newnames ) # replacing old names with new
-}
 
-rename_rais_2006 <- function(rais_data) {
-  newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo","causadesli", "mesdesli","indalvara","tipoadm", "tiposal","ocupacao94","grinstrucao", "sexotrabalhador","nacionalidad", "raca_cor", "portdefic", "tamestab","natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao","remmedia" ,"remmedr" ,"remdezembro" ,"remdezr" ,"tempempr" ,"horascontr","ultrem" ,"salcontr" ,"PIS" ,"dtnascimento" ,"numectps" ,"CPF" ,"ceivinc" ,"identificad", "radiccnpj", "TIPOESTBID","nome", "diadesli",  "ocup2002", "clascnae20", "sbclas20", "tpdefic" )
-  setnames(rais_data, new = newnames ) # replacing old names with new
-}
-
-rename_rais_2007 <- function(rais_data) {
-  newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo","causadesli", "mesdesli","indalvara","tipoadm", "tiposal","ocupacao94","grinstrucao", "sexotrabalhador","nacionalidad", "raca_cor", "portdefic", "tamestab","natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao","remmedia" ,"remmedr" ,"remdezembro" ,"remdezr" ,"tempempr" ,"horascontr","ultrem" ,"salcontr" ,"PIS" ,"dtnascimento" ,"numectps" ,"CPF" ,"ceivinc" ,"identificad", "radiccnpj", "TIPOESTBID","nome", "diadesli",  "ocup2002", "clascnae20", "sbclas20", "tpdefic", "causafast1", "diainiaf1", "mesiniaf1", "diafimaf1", "mesfimaf1", "causafast2", "diainiaf2", "mesiniaf2", "diafimaf2", "mesfimaf2", "causafast3", "diainiaf3", "mesiniaf3", "diafimaf3", "mesfimaf3", "qtdiasafas" )
-  setnames(rais_data, new = newnames ) # replacing old names with new
-}
-rename_rais_2009 <- function(rais_data) {
-  newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo","causadesli", "mesdesli","indalvara","tipoadm", "tiposal","ocupacao94","grinstrucao", "sexotrabalhador","nacionalidad", "raca_cor", "portdefic", "tamestab","natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao","remdezr" ,"remdezembro" , "remmedr" ,"remmedia" ,"tempempr" ,"horascontr","ultrem" ,"salcontr" ,"PIS" ,"dtnascimento" ,"numectps" ,"CPF" ,"ceivinc" ,"identificad", "radiccnpj", "TIPOESTBID","nome","ocup2002", "clascnae20", "sbclas20", "tpdefic", "causafast1", "diainiaf1", "mesiniaf1", "diafimaf1", "mesfimaf1", "causafast2", "diainiaf2", "mesiniaf2", "diafimaf2", "mesfimaf2", "causafast3", "diainiaf3", "mesiniaf3", "diafimaf3", "mesfimaf3", "qtdiasafas" )
-  setnames(rais_data, new = newnames ) # replacing old names with new
-}
-
-
-rename_rais_2012 <- function(rais_data) {
-  newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo", "causadesli", "mesdesli", "indalvara", "tipoadm", "tiposal", "ocupacao94", "grinstrucao", "sexotrabalhador", "nacionalidad", "raca_cor", "portdefic", "tamestab", "natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao", "remmedr", "remmedia", "remdezr", "remdezembro", "tempempr", "horascontr", "ultrem", "salcontr", "PIS", "numectps", "CPF", "ceivinc", "identificad", "radiccnpj", "nome", "ocup2002", "clascnae20", "sbclas20", "tpdefic", "causafast1", "diainiaf1", "mesiniaf1", "diafimaf1", "mesfimaf1", "causafast2", "diainiaf2", "mesiniaf2", "diafimaf2", "mesfimaf2", "causafast3", "diainiaf3", "mesiniaf3", "diafimaf3", "mesfimaf3", "qtdiasafas", "idade")
-  setnames(rais_data, new = newnames ) # replacing old names with new
-}
-rename_rais_2014 <- function(rais_data) {
-  newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo", "causadesli", "mesdesli", "indalvara", "tipoadm", "tiposal", "ocupacao94", "grinstrucao", "sexotrabalhador", "nacionalidad", "raca_cor", "portdefic", "tamestab", "natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao", "remmedr", "remmedia", "remdezr", "remdezembro", "tempempr", "horascontr", "ultrem", "salcontr", "PIS", "dtnascimento","numectps", "CPF", "ceivinc", "identificad", "radiccnpj", "nome", "ocup2002", "clascnae20", "sbclas20", "tpdefic", "causafast1", "diainiaf1", "mesiniaf1", "diafimaf1", "mesfimaf1", "causafast2", "diainiaf2", "mesiniaf2", "diafimaf2", "mesfimaf2", "causafast3", "diainiaf3", "mesiniaf3", "diafimaf3", "mesfimaf3", "qtdiasafas", "idade", "diadesli")
-  setnames(rais_data, new = newnames ) # replacing old names with new
-}
 
 rename_rais_2015 <- function(rais_data) {
   newnames <- c("municipio", "clascnae95", "empem3112", "tpvinculo", "causadesli", "mesdesli", "indalvara", "tipoadm", "tiposal", "ocupacao94", "grinstrucao", "sexotrabalhador", "nacionalidad", "raca_cor", "portdefic", "tamestab", "natjuridica", "indceivinc", "tipoestbl", "indpat", "indsimples", "dtadmissao", "remmedr", "remmedia", "remdezr", "remdezembro", "tempempr", "horascontr", "ultrem", "salcontr", "PIS", "dtnascimento","numectps", "CPF", "ceivinc", "identificad", "radiccnpj", "nome", "ocup2002", "clascnae20", "sbclas20", "tpdefic", "causafast1", "diainiaf1", "mesiniaf1", "diafimaf1", "mesfimaf1", "causafast2", "diainiaf2", "mesiniaf2", "diafimaf2", "mesfimaf2", "causafast3", "diainiaf3", "mesiniaf3", "diafimaf3", "mesfimaf3", "qtdiasafas", "idade", "diadesli","ibgesubsetor","anochegbr","cepestab","muntrab","razaosocial","remjan","remfev","remmar","remabr","remmai","remjun","remjul","remago","remset","remout","remnov")
