@@ -112,13 +112,13 @@ dropTIPOESTBID_rais <- function(rais_data) {
 }
 ### destring vars [dif] ----
 destring_rais_1998 <- function(rais_data) {
-  var_need_destringing <- c( "municipio", "empem3112","tpvinculo", "mesdesli", "grinstrucao", "tamestab", "tipoestbl","natjuridica", "horascontr", "mesadmissao", "idade")
+  var_need_destringing <- c( "municipio", "empem3112","tpvinculo", "mesdesli", "grinstrucao", "tamestab", "tipoestbl","natjuridica", "horascontr", "mesadmissao", "idade", "sexotrabalhador")
   rais_data %>%
     mutate_at(var_need_destringing, as.numeric)
 }
 
 destring_rais_2000 <- function(rais_data) {
-  var_need_destringing <- c("municipio", "empem3112","tpvinculo", "mesdesli", "grinstrucao", "tamestab", "tipoestbl","natjuridica", "horascontr", "indceivinc","mesadmissao", "idade")
+  var_need_destringing <- c("municipio", "empem3112","tpvinculo", "mesdesli", "grinstrucao", "tamestab", "tipoestbl","natjuridica", "horascontr", "indceivinc","mesadmissao", "idade","sexotrabalhador")
   rais_data %>%
     mutate_at(var_need_destringing, as.numeric)
 }
