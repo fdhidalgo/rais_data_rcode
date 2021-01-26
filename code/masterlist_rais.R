@@ -111,6 +111,12 @@ dropTIPOESTBID_rais <- function(rais_data) {
     select(everything(), -TIPOESTBID)
 }
 ### destring vars [dif] ----
+destring_rais_1998 <- function(rais_data) {
+  var_need_destringing <- c( "municipio", "empem3112","tpvinculo", "mesdesli", "grinstrucao", "tamestab", "tipoestbl","natjuridica", "horascontr", "mesadmissao", "idade")
+  rais_data %>%
+    mutate_at(var_need_destringing, as.numeric)
+}
+
 destring_rais_2000 <- function(rais_data) {
   var_need_destringing <- c("municipio", "empem3112","tpvinculo", "mesdesli", "grinstrucao", "tamestab", "tipoestbl","natjuridica", "horascontr", "indceivinc","mesadmissao", "idade")
   rais_data %>%
@@ -559,6 +565,13 @@ tipoestbl_rais <- function(rais_data) {
     ))
 }
 ### commareplace ----
+commareplace_rais_1998 <- function(rais_data) {
+  var_need_subbing <- c("remdezembro", "remmedia", "tempempr")
+  rais_data %>%
+    mutate_at(var_need_subbing, ~ str_replace_all(. ,"," ,".")) %>% # changing commas to
+    # periods and then shifting to numeric
+    mutate_at(var_need_subbing, as.numeric)
+}
 commareplace_rais_2001 <- function(rais_data) {
   var_need_subbing <- c("remdezembro", "remmedia", "remdezr", "remmedr", "tempempr")
   rais_data %>%
