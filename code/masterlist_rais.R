@@ -53,7 +53,7 @@ newnames_rais <- function(rais_data){
     modify_if(str_detect(., pattern = "nometrabalhador"), ~sprintf("nome", .)) %>%
     modify_if(str_detect(., pattern = "nmeroctps|numctps"), ~sprintf("numectps", .)) %>%
     modify_if(str_detect(., pattern = "cboocupao2002"), ~sprintf("ocup2002", .)) %>%
-    modify_if(str_detect(., pattern = "cbo94ocupao|ocupacao"), ~sprintf("ocupacao94", .)) %>%
+    modify_if(str_detect(., pattern = "cbo94ocupao|ocupacao|cboocupao"), ~sprintf("ocupacao94", .)) %>%
     modify_if(str_detect(., pattern = "pis"), ~sprintf("PIS", .)) %>%
     modify_if(str_detect(., pattern = "indportadordefic"), ~sprintf("portdefic", .)) %>%
     modify_if(str_detect(., pattern = "qtddiasafastamento"), ~sprintf("qtdiasafas", .)) %>%
@@ -111,6 +111,11 @@ dropTIPOESTBID_rais <- function(rais_data) {
     select(everything(), -TIPOESTBID)
 }
 ### destring vars [dif] ----
+destring_rais_1993 <- function(rais_data) {
+  var_need_destringing <- c( "municipio", "empem3112","tpvinculo", "mesdesli", "grinstrucao", "tamestab", "tipoestbl",  "mesadmissao", "sexotrabalhador","ibgeatividade")
+  rais_data %>%
+    mutate_at(var_need_destringing, as.numeric)
+}
 destring_rais_1998 <- function(rais_data) {
   var_need_destringing <- c( "municipio", "empem3112","tpvinculo", "mesdesli", "grinstrucao", "tamestab", "tipoestbl","natjuridica", "horascontr", "mesadmissao", "idade", "sexotrabalhador")
   rais_data %>%
