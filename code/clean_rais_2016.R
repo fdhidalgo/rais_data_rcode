@@ -1,7 +1,7 @@
 clean_rais_2016 <- function(rais_data) {
   rais_data %>% 
     as.data.table() %>% 
-    rename_rais_2015() %>% 
+    rename_rais_2016() %>% 
     make_rais_lazy() %>% 
     destring_rais_2016() %>%
     trim_rais() %>% 
@@ -26,7 +26,7 @@ clean_rais_2016 <- function(rais_data) {
     raca_cor_rais() %>% 
     tamestab_rais() %>% 
     tipoestbl_rais() %>% 
-    commareplace_rais_2015() %>% 
+    commareplace_rais_2016() %>% 
     natjuridica_rais() %>% 
     causafast_rais() %>% 
     diainiafmesiniaf_rais() %>% 
