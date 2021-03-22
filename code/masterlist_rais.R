@@ -212,7 +212,12 @@ destring_rais_2016 <- function(rais_data) {
   rais_data %>%
     mutate_at(var_need_destringing, as.numeric)
 }
-
+destring_rais_2017 <- function(rais_data) {
+  var_need_destringing <- c("municipio", "tipoadm", "tpvinculo", "causadesli", "empem3112", "mesdesli", "diadesli","idade", "grinstrucao", "sexotrabalhador", "tamestab", "tipoestbl", "horascontr", "indceivinc", "tiposal", "indalvara", "indpat", "indsimples", "indtrabparc", "indtrabint", "indsindic", "portdefic", "tpdefic", "raca_cor", "qtdiasafas", "causafast1","causafast2","causafast3", "anochegbr", "ibgesubsetor", "muntrab",
+                            "clascnae95"  )
+  rais_data %>%
+    mutate_at(var_need_destringing, as.numeric)
+}
 
 ### trim variables [dif] ----
 trim_rais <- function(rais_data) {
@@ -427,6 +432,23 @@ indsimples_rais <- function(rais_data) {
   rais_data %>%
     mutate(indsimples = fct_recode(as_factor(indsimples), "Nao" = "0" ,  "Sim" = "1"))
 }
+### indtrabparc  ----
+indtrabparc_rais <- function(rais_data) {
+  rais_data %>%
+    mutate(indtrabparc = fct_recode(as_factor(indtrabparc), "Nao" = "1" ,  "Sim" = "2"))
+}
+###  indtrabint ----
+indtrabint_rais <- function(rais_data) {
+  rais_data %>%
+    mutate(indtrabint = fct_recode(as_factor(indtrabint), "Nao" = "0" ,  "Sim" = "1"))
+}
+### indsindic ----
+indsindic_rais <- function(rais_data) {
+  rais_data %>%
+    mutate(indsindic = fct_recode(as_factor(indsindic), "Nao" = "0" ,  "Sim" = "1"))
+}
+
+
 ### grinstrucao ----
 grinstrucao_rais <- function(rais_data) {
   rais_data %>%
