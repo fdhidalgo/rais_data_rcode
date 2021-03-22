@@ -39,6 +39,9 @@ newnames_rais <- function(rais_data){
     modify_if(str_detect(., pattern = "indceivinculado"), ~sprintf("indceivinc", .)) %>%
     modify_if(str_detect(., pattern = "indestabparticipapat"), ~sprintf("indpat", .)) %>%
     modify_if(str_detect(., pattern = " "), ~sprintf("indsimples", .)) %>%
+    modify_if(str_detect(., pattern = "indtrabparcial"), ~sprintf("indtrabparc", .)) %>%
+    modify_if(str_detect(., pattern = "indtrabintermitente"), ~sprintf("indtrabint", .)) %>%
+    modify_if(str_detect(., pattern = "indsindical"), ~sprintf("indsindic", .)) %>%
     modify_if(str_detect(., pattern = "msadmisso"), ~sprintf("mesadmissao", .)) %>%
     modify_if(str_detect(., pattern = "msdesligamento|mesdeslig"), ~sprintf("mesdesli", .)) %>%
     modify_if(str_detect(., pattern = "msfimaf1"), ~sprintf("mesfimaf1", .)) %>%
