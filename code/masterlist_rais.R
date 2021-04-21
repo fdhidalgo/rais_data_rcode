@@ -305,7 +305,7 @@ ibgesubsetor_rais <- function(rais_data) {
                                      "ENSINO" = "23",
                                      "ADM PUBLICA" = "24",
                                      "AGRICULTURA" = "25",
-                                     "OUTROS/IGNORADOS" = "26"
+                                     "OUTROS/IGNORADOS" = "26" ### not in 2019
                                      
     ))
 }
@@ -365,7 +365,8 @@ causadesli_rais <- function(rais_data) {
                                    "Aposentadoria por invalidez, exceto a decorrente de doenca profissional ou acidente do trabalho" = "76",
                                    "Aposentadoria por idade, sem rescisao contratual" = "78",
                                    "Aposentadoria especial, com rescisao contratual" = "79",
-                                   "Aposentadoria especial, sem rescisao contratual" = "80"
+                                   "Aposentadoria especial, sem rescisao contratual" = "80",
+                                   "Desligamento por Acordo Empregado e Empregador" = "90"
     ) )
 }
 ### diadesli  ---
@@ -441,7 +442,7 @@ indsimples_rais <- function(rais_data) {
 ### indtrabparc  ----
 indtrabparc_rais <- function(rais_data) {
   rais_data %>%
-    mutate(indtrabparc = fct_recode(as_factor(indtrabparc), "Nao" = "1" ,  "Sim" = "2"))
+    mutate(indtrabparc = fct_recode(as_factor(indtrabparc), "Nao" = "0" ,  "Sim" = "1"))
 }
 ###  indtrabint ----
 indtrabint_rais <- function(rais_data) {
@@ -610,6 +611,7 @@ tipoestbl_rais <- function(rais_data) {
     mutate(tipoestbl = fct_recode(as_factor(tipoestbl),
                                   "CNPJ" = "1",
                                   "CEI" = "3",
+                                  "CAEPF" = "5",
                                   "Nao Identificado" = "9"
     ))
 }
@@ -681,7 +683,7 @@ natjuridica_rais <- function(rais_data) {
                                     "COM POLINAC" = "1198",
                                     "FUNDO PUBLIC" = "1201",
                                     "ASSOC PUBLIC" = "1210",
-                                    "ADM PUB OUTR" = "2005",
+                                    "ADM PUB OUTR" = "2005", ### this does not exist in 2019
                                     "EMP PUB" = "2011",
                                     "EMP PB SA CP" = "2020",
                                     "SOC MISTA" = "2038",
@@ -700,6 +702,7 @@ natjuridica_rais <- function(rais_data) {
                                     "CONS EMPRES" = "2151",
                                     "GRUP SOC" = "2160",
                                     "FIL EMP EXT" = "2178",
+                                    "SOC Anônima em Garantia Solidária" = "2186",
                                     "FIL ARG-BRA" = "2194",
                                     "ENT ITAIPU" = "2208",
                                     "EMP DOM EXT" = "2216",
@@ -711,7 +714,11 @@ natjuridica_rais <- function(rais_data) {
                                     "EMPR BINAC" = "2275",
                                     "CONS EMPREG" = "2283",
                                     "CONS SIMPLES" = "2291",
-                                    "OUTR ORG EMP" = "2992",
+                                    "Empresa Individual de Responsabilidade Ltda (De Natureza Empresária)" = "2305",
+                                    "Empresa Individual de Responsabilidade Ltda (De Natureza Simples)" = "2313",
+                                    "Sociedade Unipessoal de Advocacia" = "2321",
+                                    "Cooperativas de Consumo" = "2330",
+                                    "OUTR ORG EMP" = "2992", 
                                     "FUND REC PRV" = "3018",
                                     "ASSOCIACAO" = "3026",
                                     "CARTORIO" = "3034",
@@ -731,6 +738,13 @@ natjuridica_rais <- function(rais_data) {
                                     "ORG RELIG" = "3220",
                                     "COMUN INDIG" = "3239",
                                     "FUNDO PRIVAD" = "3247",
+                                    "Órgão de Direção Nacional de Partido Político" = "3255", 
+                                    "Órgão de Direção Regional de Partido Político"= "3263",
+                                    "Órgão de Direção Local de Partido Político" = "3271",
+                                    "Comitê Financeiro de Partido Político" = "3280", 
+                                    "Frente Plebiscitária ou Referendária" = "3298", 
+                                    "Organização Social (Os)" = "3301", 
+                                    "Demais Condomínios" = "3310", 
                                     "OUTR ORG" = "3999",
                                     "EMP IND IMO" = "4014",
                                     "SEG ESPEC" = "4022",
@@ -743,12 +757,15 @@ natjuridica_rais <- function(rais_data) {
                                     "CONTR IND07" = "4081",
                                     "CAN CARG POL" = "4090",
                                     "LEILOEIRO" = "4111",
+                                    "Produtor Rural (Pessoa Física)" = "4120", 
+                                    "Organismos Internacionais e Outras Instituições Extraterritoriais" = "4502",
                                     "OUTR ORG" = "4995",
                                     "ORG INTERN" = "5002",
                                     "ORG INTERNAC" = "5010",
                                     "REPR DIPL ES" = "5029",
                                     "OUT INST EXT" = "5037",
-                                    "IGNORADO" = " -1"
+                                    "IGNORADO" = " -1", 
+                                    "Não Informado" = "9999"
                                     
     ))
 }
