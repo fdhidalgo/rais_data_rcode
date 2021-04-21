@@ -373,7 +373,7 @@ causadesli_rais <- function(rais_data) {
 
 diadesli_rais <- function(rais_data) {
   rais_data %>%
-    mutate(diadesli = as.numeric(recode(diadesli, "NAO DESL ANO" = "0")))
+    mutate(diadesli = as.numeric(if_else(diadesli == "NAO DESL ANO", "0", as.character(diadesli))))
   
 }
 ### ocupacao94  ----
@@ -542,9 +542,17 @@ nacionalidad_rais <- function(rais_data) {
                                      "Outr. Asiatic." = "49",
                                      "Outras Nac." = "50",
                                      "Outros Europeus" = "51",
+                                     "Guine Bissau (Guineense)"= "52",
+                                     "Marroquino" = "53", 
+                                     "Cubano" = "54", 
+                                     "Sirio" = "55",
+                                     "Sul-Coreano" = "56", 
+                                     "Bengalesa" = "59",
                                      "Angolano" = "60",
                                      "Congoles" = "61",
                                      "Sul-Africano" = "62",
+                                     "Ganesa" = "63", 
+                                     "Senegalesa" = "64",
                                      "Outros Africanos" = "70",
                                      "Outros" = "80"
                                      
@@ -568,6 +576,7 @@ tpdefic_rais <- function(rais_data) {
   rais_data %>%
     mutate(tpdefic = fct_recode(as_factor(tpdefic),
                                 "Nao Defic." = "-1",
+                                "Nao Defic." = "0",
                                 "Fisica" = "1",
                                 "Auditiva" = "2",
                                 "Visual" = "3",
@@ -683,6 +692,17 @@ natjuridica_rais <- function(rais_data) {
                                     "COM POLINAC" = "1198",
                                     "FUNDO PUBLIC" = "1201",
                                     "ASSOC PUBLIC" = "1210",
+                                    "Município" = "1244",
+                                    "Fundação Pública de Direito Privado Federal" = "1252", 
+                                    "Fundação Pública de Direito Privado Estadual ou do Distrito Federal" = "1279",
+                                    "Fundo Público da Administração Indireta Federal" = "1287", 
+                                    "Fundo Público da Administração Indireta Estadual ou do Distrito Federal" = "1295", 
+                                    "Fundo Público da Administração Indireta Municipal" = "1309", 
+                                    "Fundo Público da Administração Direta Federal" = "1317", 
+                                    "Fundo Público da Administração Direta Estadual ou do Distrito Federal" = "1325", 
+                                    "Fundo Público da Administração Direta Municipal" = "1333", 
+                                    "União" = "1341", 
+                                    "Outras Formas de Administração Pública"= "1996",
                                     "ADM PUB OUTR" = "2005", ### this does not exist in 2019
                                     "EMP PUB" = "2011",
                                     "EMP PB SA CP" = "2020",
