@@ -150,3 +150,13 @@ rais_data %>%
               select(year, price_index_b2018), by = "year") 
 
 }
+
+#### job type. Only for years greater than 1995
+
+jobtype_rais <- function(rais_data, year=2000){
+  if (year >= 1995) {
+    rais_data %>% 
+      mutate(job_public = if_else(tpvinculo %in% c("ESTATUTARIO", "ESTAT RGPS", "ESTAT N/EFET" ), 1,0)) %>% 
+      mutate(job_public_com = if_else(tpvinculo %in% c("ESTAT N/EFET"),1,0 ))
+  }
+}
