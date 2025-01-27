@@ -1,39 +1,40 @@
 clean_rais_2018 <- function(rais_data) {
-  rais_data %>% 
-    as.data.table() %>% 
-    rename_rais() %>% 
-    make_rais_lazy() %>% 
-    destring_rais_2018() %>%
-    trim_rais() %>% 
-    CPF_rais() %>% 
-    identificad_rais() %>% 
-    radiccnpj_rais() %>% 
-    empem3112_rais %>% 
-    tpvinculo_rais() %>% 
-    causadesli_rais() %>% 
-    diadesli_rais() %>% 
-    ocupacao94_rais_2012() %>%
-    ocup2002_rais() %>% 
-    tipoadm_rais() %>% 
-    tiposal_rais() %>% 
-    indalvara_rais %>% 
-    indpat_rais() %>% 
-    indsimples_rais() %>% 
-    indtrabparc_rais() %>%  
-    indtrabint_rais() %>%  
-    grinstrucao_rais() %>% 
-    genero_rais_2012 %>% 
-    nacionalidad_rais() %>% 
-    tpdefic_rais() %>% 
-    raca_cor_rais() %>% 
-    tamestab_rais() %>% 
-    tipoestbl_rais() %>% 
-    commareplace_rais_2015() %>% 
-    natjuridica_rais() %>% 
-    causafast_rais() %>% 
-    diainiafmesiniaf_rais() %>% 
-    dtnascimento_rais() %>% 
-    dtadmissao_rais() %>% 
-    as_tibble() %>% 
-    assertclass_rais() 
+  rais_data <- as.data.table(rais_data)
+  rais_data <- rename_rais(rais_data)
+  rais_data <- make_rais_lazy(rais_data)
+  rais_data <- destring_rais_2018(rais_data)
+  rais_data <- trim_rais(rais_data)
+  rais_data <- CPF_rais(rais_data)
+  rais_data <- identificad_rais(rais_data)
+  rais_data <- radiccnpj_rais(rais_data)
+  rais_data <- empem3112_rais(rais_data)
+  rais_data <- tpvinculo_rais(rais_data)
+  rais_data <- causadesli_rais(rais_data)
+  rais_data <- diadesli_rais(rais_data)
+  rais_data <- ocupacao94_rais_2012(rais_data)
+  rais_data <- ocup2002_rais(rais_data)
+  rais_data <- tipoadm_rais(rais_data)
+  rais_data <- tiposal_rais(rais_data)
+  rais_data <- indalvara_rais(rais_data)
+  rais_data <- indpat_rais(rais_data)
+  rais_data <- indsimples_rais(rais_data)
+  rais_data <- indtrabparc_rais(rais_data)
+  rais_data <- indtrabint_rais(rais_data)
+  rais_data <- grinstrucao_rais(rais_data)
+  rais_data <- genero_rais_2012(rais_data)
+  rais_data <- nacionalidad_rais(rais_data)
+  rais_data <- tpdefic_rais(rais_data)
+  rais_data <- raca_cor_rais(rais_data)
+  rais_data <- tamestab_rais(rais_data)
+  rais_data <- tipoestbl_rais(rais_data)
+  rais_data <- commareplace_rais_2015(rais_data)
+  rais_data <- natjuridica_rais(rais_data)
+  rais_data <- causafast_rais(rais_data)
+  rais_data <- diainiafmesiniaf_rais(rais_data)
+  rais_data <- dtnascimento_rais(rais_data)
+  rais_data <- dtadmissao_rais(rais_data)
+  rais_data <- as_tibble(rais_data)
+  rais_data <- assertclass_rais(rais_data)
+
+  return(rais_data)
 }

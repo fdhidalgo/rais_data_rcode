@@ -13,3 +13,6 @@ Desktop.ini
 ._*
 Thumbs.db
 Icon
+## PDF Files
+*.pdf
+*.docx

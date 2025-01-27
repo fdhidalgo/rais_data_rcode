@@ -2,27 +2,46 @@
 ## assuming all functions have been built and packages run, this file will run the data for you
 source("./code/package_list.R")
 source("./code/masterlist_rais.R")
-source("./code/clean_rais_2013.R")
-setDTthreads(1)
+walk(dir("./code",
+  pattern = "clean_rais",
+  full.names = TRUE
+), source)
 
-clean_save_rais <- function(file, clean_func, out_file){
+# data.table::setDTthreads(1)
+
+clean_save_rais <- function(file, clean_func, out_file) {
+  gc()
   clean_data <- fread(file,
-                      colClasses=c("character")) %>%
+    colClasses = c("character"),
+    encoding = "Latin-1"
+  ) |>
     clean_func()
-  fwrite(clean_data, file = out_file)
+  write_parquet(clean_data,
+    sink = out_file,
+    compression = "gzip"
+  )
 }
 
-base_dir <- "/media/spinner/rais"
-year <- 2013
-clean_func <- clean_rais_2013
+base_dir <- "/Volumes/brizola/rais"
 
-files <- dir(glue(base_dir, "/rais_original_files/", "{year}"), full.names = TRUE)
-out_files <-  paste0(glue(base_dir, "/rais_cleaned/", "{year}", "/"),
-                     gsub(".*/(.*)\\.txt", files, replacement = "\\1"),
-                     ".gz")
+clean_year <- function(year) {
+  clean_func <- eval(parse(text = glue("clean_rais_{year}")))
+  files <- dir(glue(base_dir, "/rais_original_files/", "{year}"), full.names = TRUE)
+  files <- files[grep("ESTB", files, invert = TRUE, ignore.case = TRUE)]
+  out_files <- paste0(
+    glue(base_dir, "/rais_cleaned/", "{year}", "/"),
+    gsub(".*/(.*)\\.txt\\.gz", files, replacement = "\\1", ignore.case = TRUE),
+    ".parquet"
+  )
 
-for(i in 1:27){
-  print(i)
-  clean_save_rais(file = files[i], clean_func = clean_func, out_file = out_files[i])
+  for (i in seq_along(files)) {
+    print(files[i])
+    if (file.exists(glue(base_dir, "/rais_cleaned/{year}")) == FALSE) {
+      dir.create(glue(base_dir, "/rais_cleaned/{year}"))
+    }
+    clean_save_rais(file = files[i], clean_func = clean_func, out_file = out_files[i])
+    gc()
+  }
 }
 
+walk(2006, clean_year)
